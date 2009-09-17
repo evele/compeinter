@@ -44,4 +44,4 @@ Conectar a nuestro repositorio compeinter
 
     * Dejar las opciones por default y presionar Finish 
 
-    * IMPORTANTE: vuelve a aparecer un cuadro de "New project", porque Eclipse no sabe qué tipo de proyecto es (si es un proyecto Java, C++, o no asociado a un lenguaje). Darle Java/ Java Project, Next >, nombre: el nombre del proyecto que bajaron (el primero es AyGPS-Model), Finish. Va a aparecer un cartelito diciendo que los proyectos Java contienen otros recursos que van a ser reemplazados por los recursos del repositorio, hay que darle Aceptar. 
+    * IMPORTANTE: vuelve a aparecer un cuadro de "New project", porque Eclipse no sabe qué tipo de proyecto es (si es un proyecto Java, C++, o no asociado a un lenguaje). Darle Java/ Java Project, Next >, nombre: el nombre del proyecto que bajaron (el primero es analex), Finish. Va a aparecer un cartelito diciendo que los proyectos Java contienen otros recursos que van a ser reemplazados por los recursos del repositorio, hay que darle Aceptar. 
