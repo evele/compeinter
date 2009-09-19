@@ -25,10 +25,10 @@ public class pprincipal {
                 analizadorLexico = new AnaLex(archivoDeEntrada);
                 while(!terminar) {
                     try {
-                        token = analizarLexico.getToken();
+                        token = analizadorLexico.getToken();
                         resultado = resultado.concat("Token:\t\t"+token.getNombre()+"\nLexema:\t\t"+token.getLexema()+"\nLinea:\t\t\t"+Integer.toString(token.getNumeroLinea())+"\nDescripcion:\t"+token.getDescripcion()+"\n");
                         resultado = resultado.concat("*********************************************\n");
-                        terminar = (token.EOF == token.getToken());
+                        terminar = (token.esFinArchivo());
                     } catch (ErrorLexico ex) {
                         ex.printStackTrace();
                         terminar = true;
@@ -49,6 +49,11 @@ public class pprincipal {
             }                        
         } catch (ArrayIndexOutOfBoundsException a1){System.out.println("Debe ingresar el nombre de un archivo de entrada.");}
         }
+
+	private static void guardarDatos(String archivoDeSalida2, String resultado2) {
+		// TODO Auto-generated method stub
+		
+	}
 	}
 
 
