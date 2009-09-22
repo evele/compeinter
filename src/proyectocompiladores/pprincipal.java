@@ -1,15 +1,11 @@
 package proyectocompiladores;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
 
 public class pprincipal {
-	 static AnaLex analizadorLexico;
-      static Token token;
-     static String archivoDeEntrada = "";
-     String archivoDeSalida = "";
-     static String resultado = "";
-     int cont = 1;
-     static boolean terminar = false;
-     
+	      
 	public static void main(String[] args) {
 		 AnaLex analizadorLexico;
 	     Token token;
@@ -50,8 +46,19 @@ public class pprincipal {
         } catch (ArrayIndexOutOfBoundsException a1){System.out.println("Debe ingresar el nombre de un archivo de entrada.");}
         }
 
-	private static void guardarDatos(String archivoDeSalida2, String resultado2) {
-		// TODO Auto-generated method stub
+	private static void guardarDatos(String archivoDeSalida, String resultado) {
+		  ObjectOutputStream o;
+	      
+	      try {
+	          o=new ObjectOutputStream(new FileOutputStream(archivoDeSalida));
+	          o.flush();
+
+	          
+	          o.writeObject((String)resultado);
+	          o.close();
+	      } catch (Exception e) {
+	          System.out.println(e.getMessage());
+	      }
 		
 	}
 	}
