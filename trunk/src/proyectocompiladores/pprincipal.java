@@ -24,7 +24,7 @@ public class pprincipal {
                         token = analizadorLexico.getToken();
                         resultado = resultado.concat("Token:\t\t"+token.getNombre()+"\nLexema:\t\t"+token.getLexema()+"\nLinea:\t\t\t"+Integer.toString(token.getNumeroLinea())+"\nDescripcion:\t"+token.getDescripcion()+"\n");
                         resultado = resultado.concat("*********************************************\n");
-                        terminar = (token.esFinArchivo());
+                        terminar = (token.EOF == token.getNumeroToken());
                     } catch (ErrorLexico ex) {
                         ex.printStackTrace();
                         terminar = true;

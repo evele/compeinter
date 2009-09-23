@@ -1,15 +1,91 @@
 package proyectocompiladores;
 
+import java.util.HashMap;
+
 public class AnaLex {
+	public static final char ENTER = (char) 10;
 	
 	private int numeroLinea = 1;
 	private int numeroColumna = 0;
 	private Buffer buffer;
+	private HashMap tablaPalabrasReservadas; 
+	private String mensajeError;
 	
-	public AnaLex(String archivoDeEntrada) {
-		// TODO Auto-generated constructor stub
+	public AnaLex(String archivoDeEntrada) throws ErrorArchivo {
+		buffer = new Buffer();
+		inicializarTablaPalabrasReservadas();
+		buffer.abrirArchivo();
 	}
 
+	public void inicializarTablaPalabrasReservadas () {
+        tablaPalabrasReservadas = new HashMap(19);
+        tablaPalabrasReservadas.put ("PROGRAM", Token.PROGRAM);  
+        tablaPalabrasReservadas.put ("BEGIN", Token.BEGIN);   
+        tablaPalabrasReservadas.put ("END", Token.END);   
+        tablaPalabrasReservadas.put ("AND", Token.AND);   
+        tablaPalabrasReservadas.put ("OR", Token.OR);    
+        tablaPalabrasReservadas.put ("DIV", Token.DIV);   
+        tablaPalabrasReservadas.put ("NOT", Token.NOT);  
+        tablaPalabrasReservadas.put ("VAR", Token.VAR);  
+        tablaPalabrasReservadas.put ("CONST", Token.CONST);  
+        tablaPalabrasReservadas.put ("TYPE", Token.TYPE);  
+        tablaPalabrasReservadas.put ("FUNCTION", Token.FUNCTION);  
+        tablaPalabrasReservadas.put ("PROCEDURE", Token.PROCEDURE);  
+        tablaPalabrasReservadas.put ("WHILE", Token.WHILE);  
+        tablaPalabrasReservadas.put ("DO", Token.DO);   
+        tablaPalabrasReservadas.put ("ARRAY", Token.ARRAY);   
+        tablaPalabrasReservadas.put ("OF", Token.OF);   
+        tablaPalabrasReservadas.put ("IF", Token.IF);   
+        tablaPalabrasReservadas.put ("THEN", Token.THEN);   
+        tablaPalabrasReservadas.put ("ELSE", Token.ELSE);         
+     }    
+	
+	private boolean esSeparador (char caracter) {
+        if (caracter == ENTER) 
+        {
+            numeroLinea++;
+            numeroColumna = 0;
+            return(true);             
+        }
+        else
+            return Character.isWhitespace(caracter);
+    }
+	
+	private boolean caracterValido(char caracter)
+    {
+       boolean resultado = false;
+       
+       switch (caracter)
+       {
+           case '.': resultado = true; break;
+           case ',': resultado = true; break;
+           case ';': resultado = true; break;
+           case ':': resultado = true; break;
+           case '+': resultado = true; break;
+           case '-': resultado = true; break;
+           case '*': resultado = true; break;
+           case '(': resultado = true; break;
+           case ')': resultado = true; break;
+           case '[': resultado = true; break;
+           case ']': resultado = true; break;
+           case '{': resultado = true; break;
+           case '}': resultado = true; break;
+           case '>': resultado = true; break;
+           case '<': resultado = true; break;
+           case '=': resultado = true; break;
+           case '\'': resultado = true; break;           
+       }
+       return resultado;
+    }
+	
+	public int getCantidadLineas() {
+        return numeroLinea;
+    }
+         
+    public int getCantidadColumnas() {
+        return numeroColumna;
+    }      
+	
 	private int procesarEstado0 (char caracter) {
 		int estadoSiguiente;
 		
@@ -96,7 +172,57 @@ public class AnaLex {
 		else if (esSeparador(caracter) || caracterValido(caracter) || caracter == buffer.EOF) //caracteres que pueden ir pegados a un numero.
 			estadoSiguiente = 20;
 		else
-			estadoSiguiente = -5;			//caracter invalido para un numero.
+			estadoSiguiente = -4;			//caracter invalido para un numero.
+		
+		return estadoSiguiente;
+	}
+	
+	private int procesarEstado18 (char caracter) throws ErrorLexico, ErrorArchivo { 
+		int estadoSiguiente;
+		String lexema;
+		
+		if (caracter == '}') {	//cierra el comentario.
+			lexema = buffer.getLexema();		//saca la cadena de comentarios del buffer.
+			estadoSiguiente = 0;				//vuelve al estado inicial.
+		}
+		else if (caracter == buffer.EOF) {		//finalizo el archivo de entrada antes de cerrar el comentario.
+			lexema = buffer.getLexema();
+			buffer.cerrarArchivo();
+			mensajeError = ErrorLexico.MensajeError(numeroLinea, numeroColumna, ErrorLexico.COMENTARIO_ABIERTO, lexema);
+			throw new ErrorLexico(mensajeError);
+		}
+		else {									//otro caracter dentro del comentario.
+			esSeparador(caracter);
+			estadoSiguiente = 18;
+		}
+		return estadoSiguiente;
+	}
+	
+	private int procesarEstado21(char caracter) throws ErrorLexico, ErrorArchivo {
+		int estadoSiguiente;
+		char caracterAuxiliar;
+		String lexema;
+		
+		if (caracter == '*') {
+			caracterAuxiliar = buffer.proximoCaracter();
+			if (caracterAuxiliar == ')') {
+				lexema = buffer.getLexema();	//saca la cadena de comentarios del buffer.
+				estadoSiguiente = 0;
+			}
+			else {
+				estadoSiguiente = 21;
+			}
+		}
+		else if (caracter == buffer.EOF) {		//finalizo el archivo de entrada que cierra el comentario.
+			lexema = buffer.getLexema();
+			buffer.cerrarArchivo();
+			mensajeError = ErrorLexico.MensajeError (numeroLinea, numeroColumna, ErrorLexico.COMENTARIO_ABIERTO, lexema);
+			throw new ErrorLexico(mensajeError);
+		}
+		else {
+			esSeparador(caracter);
+			estadoSiguiente = 21;
+		}
 		
 		return estadoSiguiente;
 	}
@@ -107,6 +233,7 @@ public class AnaLex {
 		String lexema;				//es el lexema leido del buffer.
 		Token token = null;			//es el token encontrado.
 		boolean terminar = false; 	//indica cuando no tiene que seguir con el ciclo while.
+		int valor;
 		
 		while (!terminar) {
 			switch (estado) {
@@ -168,19 +295,19 @@ public class AnaLex {
 				break;
 			}
 			case 8: { //leyó un ")" y recupera el token "PARENTESICIERRA"
-				lexema = buffer.lexema();
+				lexema = buffer.getLexema();
 				token = new Token (Token.PARENTESISCIERRA,lexema,numeroLinea,numeroColumna);
 				terminar = true;
 				break;
 			}
 			case 9: {// leyó '[' recupera el token "CORCHETEABRE"
-				lexema = buffer.lexema();
+				lexema = buffer.getLexema();
 				token = new Token (Token.CORCHETEABRE,lexema,numeroLinea,numeroColumna);
 				terminar = true;
 				break;
 			}
 			case 10: {// leyó ']' recupera el token "CORCHETECIERRA"
-				lexema = buffer.lexema();
+				lexema = buffer.getLexema();
 				token = new Token (Token.CORCHETECIERRA,lexema,numeroLinea,numeroColumna);
 				terminar = true;
 				break;
@@ -218,7 +345,7 @@ public class AnaLex {
 				 caracter = buffer.proximoCaracter();
 				 numeroColumna++;
 				 if (caracter == '='){  // se leyó un IGUAL luego de un DOSPUNTOS retorna el token ASIGNACION
-			            lexema = buffer.lexema();
+			            lexema = buffer.getLexema();
 			            token = new Token(Token.ASIGNACION, lexema, numeroLinea, numeroColumna);
 			     }
 			     else {
@@ -230,8 +357,8 @@ public class AnaLex {
 				 terminar = true;
 				 break;
 			 }
-			 case 15: { // leyó "=" => recupera el token: "IGUAL"
-                 lexema = buffer.lexema();
+			 case 15: { // leyó "=" y recupera el token "IGUAL"
+                 lexema = buffer.getLexema();
                  token = new Token (Token.IGUAL, lexema, numeroLinea, numeroColumna);                    
                  terminar = true;
                  break;
@@ -240,20 +367,97 @@ public class AnaLex {
 				 caracter = buffer.proximoCaracter();
 				 numeroColumna++;
 				 if (caracter == '=') {  // se leyó un IGUAL luego de un MENOR token MENOROIGUAL		 
-			            lexema = buffer.lexema();
+			            lexema = buffer.getLexema();
 			            token = new Token(Token.MENOROIGUAL, lexema, numeroLinea, numeroColumna);
 			        }
-			        else
+				 else if (caracter == '>') {  //se leyó un MAYOR luego de un menor token DISTINTO
+					 	lexema = buffer.getLexema();
+					 	token = new Token(Token.DISTINTO, lexema, numeroLinea, numeroColumna);
+				 }
+				 else		//se leyó un caracter cualquiera token MENOR
 			        {
 			            buffer.retrocederLexema();
 			            numeroColumna--;
 			            lexema = buffer.getLexema();
 			            token = new Token(Token.MENOR, lexema, numeroLinea, numeroColumna);
 			        }
+				 break;
 			        
 			 }
+			 case 17: { //leyó ">" y recupera el token "MAYOR".
+				 caracter = buffer.proximoCaracter();
+				 numeroColumna++;
+				 if (caracter == '=') {  // se leyó un IGUAL luego de un MAYOR token MAYOROIGUAL		 
+			            lexema = buffer.getLexema();
+			            token = new Token(Token.MAYOROIGUAL, lexema, numeroLinea, numeroColumna);
+			        }
+				 else		//se leyó un caracter cualquiera token MAYOR
+			        {
+			            buffer.retrocederLexema();
+			            numeroColumna--;
+			            lexema = buffer.getLexema();
+			            token = new Token(Token.MAYOR, lexema, numeroLinea, numeroColumna);
+			        }
+				 break;
+			 }
+			 case 18: { //leyó un "{" entonces saltea el comentario.
+				 caracter = buffer.proximoCaracter();
+				 numeroColumna++;
+				 estado = procesarEstado18(caracter);
+				 break;
+			 }
+			 case 19: { //recupera el token de un IDENTIFICADOR o una PALABRARESERVADA.
+				 buffer.retrocederLexema();
+				 numeroColumna--;
+				 lexema = buffer.getLexema();
+				 
+				 if (tablaPalabrasReservadas.containsKey(lexema.toUpperCase())) {
+					 valor = tablaPalabrasReservadas.get(lexema.toUpperCase()).hashCode();	//recupera el valor del token con clave lexema (en mayuscula).
+					 token = new Token (valor, lexema, numeroLinea, numeroColumna);
+				 }
+				 else {
+					 token = new Token(Token.IDENTIFICADOR, lexema, numeroLinea, numeroColumna);
+				 }
+				 terminar = true;
+                 break;
+			 }
+			 case 20: { // recupera el token NUMERO
+				 buffer.retrocederLexema();
+				 numeroColumna--;
+				 lexema = buffer.getLexema();
+				 token = new Token(Token.NUMERO, lexema, numeroLinea, numeroColumna);
+				 terminar = true;
+				 break;
+			 }
+			 case 21: { // leyó un (* salteamos los comentarios
+				 caracter = buffer.proximoCaracter();
+				 estado = procesarEstado21(caracter);
+				 break;
+			 }
+			 case -1: { //finalizo el archivo de entrada.
+				 buffer.cerrarArchivo();
+				 token = new Token (Token.EOF, "FIN DE ARCHIVO", numeroLinea, numeroColumna);
+				 terminar = true;
+				 break;
+			 }
+			 case -2: { //error lexico: CARACTER INVALIDO.
+				 buffer.cerrarArchivo();
+				 mensajeError = ErrorLexico.mensajeError(numeroLinea, numeroColumna, ErrorLexico.CARACTER_INVALIDO, caracter);
+				 throw new ErrorLexico(mensajeError);
+			 }
+			 case -3: { //error lexico: leyó un "}" antes que un "{".
+				 buffer.cerrarArchivo();
+				 mensajeError = ErrorLexico.mensajeError(numeroLinea, numeroColumna, ErrorLexico.COMENTARIO_CERRADO, caracter);
+				 throw new ErrorLexico(mensajeError);
+			 }
+			 case -4: { //error lexico: NUMERO INVALIDO.
+				 lexema = buffer.getLexema();
+				 buffer.cerrarArchivo();
+				 mensajeError = ErrorLexico.mensajeError(numeroLinea, numeroColumna, ErrorLexico.NUMERO_INVALIDO, caracter);
+				 throw new ErrorLexico(mensajeError);
+			 }
+			}
 		}
-		
 		return token;
 	}
 

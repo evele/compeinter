@@ -14,7 +14,8 @@ public class ErrorLexico extends Exception {
     /**
      * Error relacionado con el formato invalido para un comentario.
      */
-    final static String COM_ABIERTO_INV = "Comentario Abierto pero no Cerrado: ";    
+  
+    public static final String COMENTARIO_ABIERTO = "Comentario Abierto pero no Cerrado: ";
     /**
      * Error relacionado con el formato invalido para un comentario.
      */
@@ -27,6 +28,7 @@ public class ErrorLexico extends Exception {
      * Error relacionado con el formato invalido para un literal.
      */
     final static String LITERAL_INV = "Definicion de literal invalido: ";
+	
         
     /**
      * Contruye el mensaje de error asociado a un error lexico.
