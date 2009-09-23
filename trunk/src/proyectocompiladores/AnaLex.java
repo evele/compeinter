@@ -98,7 +98,7 @@ public class AnaLex {
 		else
 			estadoSiguiente = -5;			//caracter invalido para un numero.
 		
-		return
+		return estadoSiguiente;
 	}
 	
 	public Token getToken() {
@@ -157,7 +157,7 @@ public class AnaLex {
 				caracter = buffer.proximoCaracter();
 				numeroColumna++;
 				if (caracter == '*')		//se leyó un * luego de un "(" entonces es un comentario.
-					estadoSiguiente = 21;
+					estado = 21;
 				else {
 					buffer.retrocederLexema();
 					numeroColumna--;
