@@ -7,23 +7,25 @@ import java.io.PrintStream;
  */
 public class ErrorArchivo extends Exception {
     
-    /**
-     * Error relacionado a una ruta invalida.
-     */
-    final static String RUTA_INV = "La ruta del arhivo especificado es invalida.";
-    /**
-     * Error relacionado al acceder al archivo.
-     */
-    final static String ERROR_IO = "Error de E/S al leer del archivo fuente.";
+ 
+    // Error producido al no encontrar el archivo
+   
+    final static String RUTA_INVALIDA = "La ruta o el arhivo especificado son invalidos.";
+    
+    
+    
+    // Error producido al no poder acceder al archivo.
+    
+    final static String ERROR_ENTRADA_SALIDA = "Error de E/S al leer del archivo fuente.";
     
      
-    /**
-     * Constructor de un manejador de errores de archivo.
-     * @param tipo indica el tipo de error encontrado.
-     */
+    
+    // Constructor de un manejador de errores de archivo.
+    // tipo indica el tipo de error encontrado.
+    
     public ErrorArchivo(String tipo) {
-        super("\n *************************************************** \n  " + tipo
-              + "\n *************************************************** \n");
+        super("\n *********************************************** \n  " + tipo
+              + "\n *********************************************** \n");
     }
     
 }
