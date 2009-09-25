@@ -14,7 +14,7 @@ public class AnaLex {
 	public AnaLex(String archivoDeEntrada) throws ErrorArchivo {
 		buffer = new Buffer();
 		inicializarTablaPalabrasReservadas();
-		buffer.abrirArchivo();
+		buffer.abrirArchivo(archivoDeEntrada);
 	}
 
 	public void inicializarTablaPalabrasReservadas () {
@@ -188,7 +188,7 @@ public class AnaLex {
 		else if (caracter == buffer.EOF) {		//finalizo el archivo de entrada antes de cerrar el comentario.
 			lexema = buffer.getLexema();
 			buffer.cerrarArchivo();
-			mensajeError = ErrorLexico.MensajeError(numeroLinea, numeroColumna, ErrorLexico.COMENTARIO_ABIERTO, lexema);
+			mensajeError = ErrorLexico.mensajeError(numeroLinea, numeroColumna, ErrorLexico.COMENTARIO_ABIERTO, lexema);
 			throw new ErrorLexico(mensajeError);
 		}
 		else {									//otro caracter dentro del comentario.
@@ -216,7 +216,7 @@ public class AnaLex {
 		else if (caracter == buffer.EOF) {		//finalizo el archivo de entrada que cierra el comentario.
 			lexema = buffer.getLexema();
 			buffer.cerrarArchivo();
-			mensajeError = ErrorLexico.MensajeError (numeroLinea, numeroColumna, ErrorLexico.COMENTARIO_ABIERTO, lexema);
+			mensajeError = ErrorLexico.mensajeError (numeroLinea, numeroColumna, ErrorLexico.COMENTARIO_ABIERTO, lexema);
 			throw new ErrorLexico(mensajeError);
 		}
 		else {
@@ -227,7 +227,7 @@ public class AnaLex {
 		return estadoSiguiente;
 	}
 	
-	public Token getToken() {
+	public Token getToken() throws ErrorLexico, ErrorArchivo {
 		int estado = 0;				//estado del automata finito.
 		char caracter = ' '; 		//ultimo caracter leido.
 		String lexema;				//es el lexema leido del buffer.
