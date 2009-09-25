@@ -25,13 +25,13 @@ public class pprincipal {
                         resultado = resultado.concat("Token:\t\t"+token.getNombre()+"\nLexema:\t\t"+token.getLexema()+"\nLinea:\t\t\t"+Integer.toString(token.getNumeroLinea())+"\nDescripcion:\t"+token.getDescripcion()+"\n");
                         resultado = resultado.concat("*********************************************\n");
                         terminar = (token.EOF == token.getNumeroToken());
-                    } catch (ErrorLexico ex) {
-                        ex.printStackTrace();
-                        terminar = true;
-                    }  catch (ErrorArchivo ex) {
-                        ex.printStackTrace();
-                        terminar = true;
-                }       
+                    	}  	   catch (ErrorLexico ex) {
+                    		ex.printStackTrace();
+                    		terminar = true;
+                    		}  /*catch (ErrorArchivo ex) {
+                    		ex.printStackTrace();
+                    		terminar = true;
+                    		}    */   
                 }
             } catch (ErrorArchivo ex) {
                 	   ex.printStackTrace();
@@ -43,7 +43,9 @@ public class pprincipal {
             else{//mostrar la salida en la pantalla.
                 	System.out.println(resultado);
             }                        
-        } catch (ArrayIndexOutOfBoundsException a1){System.out.println("Debe ingresar el nombre de un archivo de entrada.");}
+        } catch (ArrayIndexOutOfBoundsException a1){
+        	System.out.println("Debe ingresar el nombre de un archivo de entrada.");
+        	}
         }
 
 	private static void guardarDatos(String archivoDeSalida, String resultado) {
