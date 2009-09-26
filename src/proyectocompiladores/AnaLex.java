@@ -274,11 +274,19 @@ public class AnaLex {
 				terminar = true;
 				break;
 			}
-			case 6: {//leyo "*" y recupera el token "MULTIPLICACION".
-				lexema = buffer.getLexema();
-				token = new Token (Token.MULTIPLICACION, lexema, numeroLinea, numeroColumna);
-				terminar = true;
-				break;
+			case 6: {//leyo "*" y recupera el token "MULTIPLICACION" o si lee ")" es un error.
+				caracter = buffer.proximoCaracter();
+				numeroColumna++;
+				if (caracter == ')')		//se leyó un ")" luego de un "*" entonces es un comentario cerrado que nunca se abrio.
+					estado = -3;
+				else {
+					buffer.retrocederLexema();
+					numeroColumna--;
+					lexema = buffer.getLexema();
+					token = new Token(Token.PARENTESISABRE, lexema, numeroLinea, numeroColumna);
+					terminar = true;
+				}
+				break;				
 			}
 			case 7: {//leyo un "(" y recupera el token "PARENTESISABRE" o saltea un comentario.
 				caracter = buffer.proximoCaracter();
@@ -381,6 +389,7 @@ public class AnaLex {
 			            lexema = buffer.getLexema();
 			            token = new Token(Token.MENOR, lexema, numeroLinea, numeroColumna);
 			        }
+				 terminar = true;
 				 break;
 			        
 			 }
@@ -398,6 +407,7 @@ public class AnaLex {
 			            lexema = buffer.getLexema();
 			            token = new Token(Token.MAYOR, lexema, numeroLinea, numeroColumna);
 			        }
+				 terminar = true;
 				 break;
 			 }
 			 case 18: { //leyó un "{" entonces saltea el comentario.
@@ -445,7 +455,7 @@ public class AnaLex {
 				 mensajeError = ErrorLexico.mensajeError(numeroLinea, numeroColumna, ErrorLexico.CARACTER_INVALIDO, caracter);
 				 throw new ErrorLexico(mensajeError);
 			 }
-			 case -3: { //error lexico: leyó un "}" antes que un "{".
+			 case -3: { //error lexico: leyó un "}" antes que un "{" o un "*)" antes que un "(*".
 				 buffer.cerrarArchivo();
 				 mensajeError = ErrorLexico.mensajeError(numeroLinea, numeroColumna, ErrorLexico.COMENTARIO_CERRADO, caracter);
 				 throw new ErrorLexico(mensajeError);
