@@ -30,7 +30,7 @@ public class Token {
     public static final int CORCHETEABRE=19;
     public static final int CORCHETECIERRA=20;
     public static final int NUMERO=21;
-    public static final int LITERAL=22;
+
     
     // Palabras Reservadas
     public static final int PROGRAM = 23;
@@ -88,7 +88,7 @@ public class Token {
             case 19:return ("CORCHETEABRE"); 
             case 20:return ("CORCHETECIERRA"); 
             case 21:return ("NUMERO"); 
-            case 22:return ("LITERAL"); 
+        
             
             // Palabras Reservadas
             case 23:return ("PROGRAM");
@@ -145,7 +145,7 @@ public class Token {
             case 19:return ("Corchete que abre"); 
             case 20:return ("Corchete que cierra"); 
             case 21:return ("Número"); 
-            case 22:return ("Literal");             
+               
             
             // Palabras Reservadas
             case 23:return ("Palabra Reservada PROGRAM");
