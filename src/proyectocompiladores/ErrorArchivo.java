@@ -27,8 +27,6 @@ public class ErrorArchivo extends Exception {
         super("\n *********************************************** \n  " + tipo
               + "\n *********************************************** \n");
     }
-    private void aVerQueOnda(){
-    	System.out.print("FORMATEANDO TODO!");
-    }
+
     
 }
