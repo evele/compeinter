@@ -17,8 +17,8 @@ public class Buffer {
     private FileReader fr;
     private BufferedReader lectorBuffer;    
     boolean cargarbuffer = true;
-    private int iniLex = 0;
-    private int finLex = -1; /* queda en 0 con avanzarfinLex*/
+    private int inicioLexema = 0;
+    private int finLexema = -1; /* queda en 0 con avanzarfinLexema*/
 	
     public void abrirArchivo(String f) throws ErrorArchivo {
 		try {
@@ -37,12 +37,12 @@ public class Buffer {
 
 	public String getLexema() {
 		String s = new String("");       
-        while (iniLex != finLex) {
-            s = s + buffer[iniLex];
-            iniLex = avanzarLexema(iniLex);
+        while (inicioLexema != finLexema) {
+            s = s + buffer[inicioLexema];
+            inicioLexema = avanzarLexema(inicioLexema);
         }
-        s = s + buffer[finLex]; // ultimo caract. del token
-        iniLex = avanzarLexema(iniLex); // queda igual a finLex para el prox caract.
+        s = s + buffer[finLexema]; // ultimo caract. del token
+        inicioLexema = avanzarLexema(inicioLexema); // queda igual a finLexema para el prox caract.
         
         return s;
 	}
@@ -71,14 +71,14 @@ public class Buffer {
 
 	public char proximoCaracter() throws ErrorArchivo {
 		int status;     //determina cuantos caracteres se leyeron del buffer, y si es -1 significa que  se llego a EndOfFile.
-        finLex = avanzarLexema(finLex);
+        finLexema = avanzarLexema(finLexema);
         try {
-            if ((finLex == 0) && (cargarbuffer)) /* cargo primera mitad del buffer */
+            if ((finLexema == 0) && (cargarbuffer)) /* cargo primera mitad del buffer */
             {
                 status = lectorBuffer.read(buffer, 0, MAXLECTORBUF);
                 controlEOF(1,status);
             }
-            else if ((finLex == MITADBUFFER+1) && (cargarbuffer)) /* cargo segunda mitad del buffer */
+            else if ((finLexema == MITADBUFFER+1) && (cargarbuffer)) /* cargo segunda mitad del buffer */
                  {
                      status = lectorBuffer.read(buffer, MITADBUFFER+1, MAXLECTORBUF);
                      controlEOF(2,status);
@@ -89,7 +89,7 @@ public class Buffer {
         catch (IOException e) {
             throw new ErrorArchivo(ErrorArchivo.ERROR_ENTRADA_SALIDA);
         }        
-        return buffer[finLex];
+        return buffer[finLexema];
 	}
 
 	private void controlEOF(int mitad, int estado) {
@@ -110,15 +110,15 @@ public class Buffer {
 	}
 
 	public void retrocederLexema() {
-		finLex--;
-        if (finLex == -1)
+		finLexema--;
+        if (finLexema == -1)
         {
-            finLex = FINBUFFER - 1;
+            finLexema = FINBUFFER - 1;
             cargarbuffer = false;
         }
-        else if (finLex == MITADBUFFER)
+        else if (finLexema == MITADBUFFER)
              {
-                finLex--;
+                finLexema--;
                 cargarbuffer = false;
              }
 	}
