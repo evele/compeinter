@@ -278,12 +278,12 @@ public class AnaLex {
 				caracter = buffer.proximoCaracter();
 				numeroColumna++;
 				if (caracter == ')')		//se leyó un ")" luego de un "*" entonces es un comentario cerrado que nunca se abrio.
-					estado = -3;
+					estado = -5;
 				else {
 					buffer.retrocederLexema();
 					numeroColumna--;
 					lexema = buffer.getLexema();
-					token = new Token(Token.PARENTESISABRE, lexema, numeroLinea, numeroColumna);
+					token = new Token(Token.MULTIPLICACION, lexema, numeroLinea, numeroColumna);
 					terminar = true;
 				}
 				break;				
@@ -439,7 +439,7 @@ public class AnaLex {
 				 terminar = true;
 				 break;
 			 }
-			 case 21: { // leyó un (* salteamos los comentarios
+			 case 21: { // leyó un "(*" salteamos los comentarios
 				 caracter = buffer.proximoCaracter();
 				 estado = procesarEstado21(caracter);
 				 break;
@@ -455,15 +455,20 @@ public class AnaLex {
 				 mensajeError = ErrorLexico.mensajeError(numeroLinea, numeroColumna, ErrorLexico.CARACTER_INVALIDO, caracter);
 				 throw new ErrorLexico(mensajeError);
 			 }
-			 case -3: { //error lexico: leyó un "}" antes que un "{" o un "*)" antes que un "(*".
+			 case -3: { //error lexico: leyó un "}" antes que un "{".
 				 buffer.cerrarArchivo();
-				 mensajeError = ErrorLexico.mensajeError(numeroLinea, numeroColumna, ErrorLexico.COMENTARIO_CERRADO, caracter);
+				 mensajeError = ErrorLexico.mensajeError(numeroLinea, numeroColumna, ErrorLexico.COMENTARIO_CERRADO1, caracter);
 				 throw new ErrorLexico(mensajeError);
 			 }
 			 case -4: { //error lexico: NUMERO INVALIDO.
 				 lexema = buffer.getLexema();
 				 buffer.cerrarArchivo();
 				 mensajeError = ErrorLexico.mensajeError(numeroLinea, numeroColumna, ErrorLexico.NUMERO_INVALIDO, caracter);
+				 throw new ErrorLexico(mensajeError);
+			 }
+			 case -5: { //error lexico: leyó un "*)" antes que un "(*".
+				 buffer.cerrarArchivo();
+				 mensajeError = ErrorLexico.mensajeError(numeroLinea, numeroColumna, ErrorLexico.COMENTARIO_CERRADO2, caracter);
 				 throw new ErrorLexico(mensajeError);
 			 }
 			}

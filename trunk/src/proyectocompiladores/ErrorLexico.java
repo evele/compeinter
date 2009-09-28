@@ -1,9 +1,7 @@
 package proyectocompiladores;
 import java.io.PrintStream;
 
-/**
- * Clase para el manejo de errores lexicos.
- */
+// Clase para el manejo de errores lexicos.
 public class ErrorLexico extends Exception {
     
     
@@ -12,29 +10,24 @@ public class ErrorLexico extends Exception {
      
     final static String CARACTER_INVALIDO = "Caracter invalido, no pertenece al alfabeto del lenguaje: ";    
     
-    //  Error relacionado con el formato invalido para un comentario.
+     //  Error relacionado con el formato invalido para un comentario.
      
-  
     public static final String COMENTARIO_ABIERTO = "Comentario Abierto pero no Cerrado: ";
     
-     // Error relacionado con el formato invalido para un comentario.
+     // Error relacionado con el formato invalido para un comentario con una "}".
      
-    final static String COMENTARIO_CERRADO = "Comentario Cerrado pero no Abierto: ";    
+    final static String COMENTARIO_CERRADO1 = "Comentario Cerrado pero no Abierto: ";    
+    
+     // Error relacionado con el formato invalido para un comentario con un "*)".
+    
+    final static String COMENTARIO_CERRADO2 = "Comentario Cerrado pero no Abierto: *";
     
      // Error relacionado con el formato invalido para un numero.
      
     final static String NUMERO_INVALIDO = "Formato de numero invalido: ";
- 
-	
+ 	
         
-    /**
-     * Contruye el mensaje de error asociado a un error lexico.
-     * @param nroFila numero de linea donde ocurrio el error.
-     * @param nroCol numero del caracter dentro de nroFila donde ocurrio el error.
-     * @param error indica el msj de error que sucedio.
-     * @param o objeto que produjo el error.
-     * @return mensaje de error asociado al mismo.
-     */
+    // Contruye el mensaje de error asociado a un error lexico. 
     public static String mensajeError(int nroFila, int nroCol, String error, Object o) {
         String msj = "Error Lexico en: (Fila: " + nroFila +  ",Columna: "+ nroCol + ")\n\t" + error;
         if (o != null)
@@ -42,13 +35,10 @@ public class ErrorLexico extends Exception {
         return(msj);
     }
             
-    /**
-     * Constructor de un manejador de errores de archivo.
-     * @param msj indica el msj de error encontrado.
-     */
+    // Constructor de un manejador de errores de archivo. 
     public ErrorLexico(String msj) {
-        super("\n ******************************************************************************* \n  " + msj 
-              +"\n *******************************************************************************\n");
+        super("\n =============================================================================== \n  " + msj 
+              +"\n\n ===============================================================================\n");
     }
     
 }

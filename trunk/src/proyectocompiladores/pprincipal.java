@@ -60,9 +60,7 @@ public class pprincipal {
 		  File f;
 	      try {	    	 
 	    	  	String fileName = archivoDeSalida;
-	            // File f = new File(fileName);
 	            FileWriter fw;
-	            // FileWriter fichero = new FileWriter("c:/prueba.txt",true);
 	            f = new File(archivoDeSalida);
 	            f.delete();
 	            fw = new FileWriter(fileName, true);
