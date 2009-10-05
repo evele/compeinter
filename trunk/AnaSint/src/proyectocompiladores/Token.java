@@ -178,6 +178,10 @@ public class Token {
 	public int getNumeroToken() {
 		return numeroToken;
 	}
+
+	public int getNumeroColumna() {
+		return numeroColumna;
+	}
 	
 
 }
