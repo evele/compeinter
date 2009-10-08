@@ -6,18 +6,27 @@ public class Anasint {
     private Token tokenActual;
     private int numeroTokenActual;
 	
+    public Anasint(AnaLex AL) throws ErrorLexico, ErrorArchivo
+    {
+        analizadorLexico = AL;
+        numeroTokenActual = analizadorLexico.getToken().getNumeroToken();
+    }
+    
 	private void match (int numeroToken) throws ErrorLexico, ErrorArchivo, ErrorSintactico {
 		Token tokenEsperado;
 		int lineaError, columnaError;
 		String lexemaEncontrado, lexemaEsperado, mensajeError;
 		
 		if (numeroTokenActual == numeroToken) {
-			numeroTokenActual = analizadorLexico.getToken().getNumeroToken();
+			//System.out.println(numeroTokenActual);
+			tokenActual = analizadorLexico.getToken();
+			numeroTokenActual = tokenActual.getNumeroToken();
+			
 		}
 		else {
 			tokenEsperado = new Token(numeroToken, "", analizadorLexico.getCantidadLineas(), analizadorLexico.getCantidadColumnas());
 			columnaError = tokenActual.getNumeroColumna();
-			lineaError = tokenActual.getNumeroLinea();
+			lineaError = tokenActual.getNumeroLinea();						
 			lexemaEncontrado = tokenActual.getLexema();
 			lexemaEsperado = tokenEsperado.getDescripcion();
 			mensajeError = ErrorSintactico.mensajeError(lineaError,columnaError,lexemaEsperado,lexemaEncontrado);
@@ -25,7 +34,7 @@ public class Anasint {
 		}
 	}
 	
-	private void analizarSintaxis () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
+	public void analizarSintaxis () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
 		programa();
 	}
 	
@@ -47,7 +56,7 @@ public class Anasint {
 		bloqueDeclaracionVariable();
 		bloqueDeclaracionProcYFun();
 		bloqueSentencia();
-	}
+	} 
 	
 	private void bloqueDefinicionConstante () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
 		if (numeroTokenActual == Token.CONST) {
@@ -71,10 +80,12 @@ public class Anasint {
 			match(Token.IDENTIFICADOR);
 		else if (numeroTokenActual == Token.SUMA) {
 			match(Token.SUMA); 
-			constanteFac(); }
-		else 
+			constanteFac(); 
+			}
+		else {
 			match(Token.RESTA); 
 			constanteFac();
+			}
 			
 	}
 	
