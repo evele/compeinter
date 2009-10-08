@@ -69,19 +69,13 @@ public class Anasint {
 			match(Token.NUMERO);
 		else if (numeroTokenActual == Token.IDENTIFICADOR)
 			match(Token.IDENTIFICADOR);
-		else {
-			signo();
+		else if (numeroTokenActual == Token.SUMA) {
+			match(Token.SUMA); 
+			constanteFac(); }
+		else 
+			match(Token.RESTA); 
 			constanteFac();
-		}
-	}
-	
-	private void signo () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
-		if (numeroTokenActual == Token.SUMA) {
-			match(Token.SUMA);
-		}
-		else {
-			match(Token.RESTA);
-		}
+			
 	}
 	
 	private void constanteFac () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
@@ -126,11 +120,17 @@ public class Anasint {
 			match(Token.IDENTIFICADOR);
 			tipoSimpleFac();
 		}
-		else {
-			signo();
+		else if (numeroTokenActual == Token.SUMA) {
+			match(Token.SUMA);
 			constanteFac();
 			match(Token.PUNTOPUNTO);
 			constante();
+		}
+		else {
+			match(Token.RESTA);
+			constanteFac();
+			match(Token.PUNTOPUNTO);
+			constante();	
 		}
 	}
 	
@@ -385,12 +385,12 @@ public class Anasint {
 	
 	private void expresionSimple () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
 		if (numeroTokenActual == Token.SUMA) {
-			signo();
+			match(Token.SUMA);
 			termino();
 			expresionSimpleFac();
 		}
 		else if (numeroTokenActual == Token.RESTA) {
-			signo();
+			match(Token.RESTA);
 			termino();
 			expresionSimpleFac();
 		}
@@ -434,12 +434,12 @@ public class Anasint {
 			expresionSimpleFac();
 		}
 		else if (numeroTokenActual == Token.SUMA) {
-			signo();
+			match(Token.SUMA);
 			termino();
 			expresionSimpleFac();
 		}
 		else if (numeroTokenActual == Token.RESTA) {
-			signo();
+			match(Token.RESTA);
 			termino();
 			expresionSimpleFac();
 		}
