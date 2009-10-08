@@ -29,9 +29,22 @@ public class ErrorLexico extends Exception {
         
     // Contruye el mensaje de error asociado a un error lexico. 
     public static String mensajeError(int nroFila, int nroCol, String error, Object o) {
-        String msj = "Error Lexico en: (Fila: " + nroFila +  ",Columna: "+ nroCol + ")\n\t" + error;
-        if (o != null)
+        String msj;
+    	
+        if (!(o.getClass().isInstance(String.class))) {
+        	o = String.valueOf(o);        	
+        }
+    	if (((String) o).startsWith("{")) {
+    		msj = "Error Lexico en: (Fila: " + nroFila +  ",Columna: "+ nroCol + ")\n\t" + error + " {";
+    	}
+    	else if (((String) o).startsWith("(*")) {
+    		msj = "Error Lexico en: (Fila: " + nroFila +  ",Columna: "+ nroCol + ")\n\t" + error + " (*";
+    	}    		
+    	else {
+    		msj = "Error Lexico en: (Fila: " + nroFila +  ",Columna: "+ nroCol + ")\n\t" + error;
+    		if (o != null)
             msj= msj + o;
+    	}
         return(msj);
     }
             
