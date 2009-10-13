@@ -282,7 +282,7 @@ public class Anasint {
 	private void encabezadoFuncion () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
 		if (numeroTokenActual == Token.DOSPUNTOS) {
 			match(Token.DOSPUNTOS);
-			match(Token.IDENTIFICADOR);
+			tipo();
 			match(Token.PUNTOCOMA);
 		}
 		else {
@@ -290,7 +290,7 @@ public class Anasint {
 			seccionParametrosFormales();
 			match(Token.PARENTESISCIERRA);
 			match(Token.DOSPUNTOS);
-			match(Token.IDENTIFICADOR);
+			tipo();
 			match(Token.PUNTOCOMA);
 		}
 	}
