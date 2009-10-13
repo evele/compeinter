@@ -18,7 +18,6 @@ public class Anasint {
 		String lexemaEncontrado, lexemaEsperado, mensajeError;
 		
 		if (numeroTokenActual == numeroToken) {
-			//System.out.println(numeroTokenActual);
 			tokenActual = analizadorLexico.getToken();
 			numeroTokenActual = tokenActual.getNumeroToken();
 			
@@ -36,6 +35,7 @@ public class Anasint {
 	
 	public void analizarSintaxis () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
 		programa();
+		match(Token.EOF);
 	}
 	
 	private void programa () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
@@ -197,14 +197,7 @@ public class Anasint {
 		}
 	}
 	
-	private void variableFac () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
-		if (numeroTokenActual == Token.CORCHETEABRE) {
-			match(Token.CORCHETEABRE);
-			expresion();
-			match(Token.CORCHETECIERRA);
-		}
-	}
-	
+		
 	private void restoDeclaracionVariable () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
 		if (numeroTokenActual == Token.IDENTIFICADOR) {
 			declaracionVariable();
@@ -217,7 +210,7 @@ public class Anasint {
 		if (numeroTokenActual == Token.PROCEDURE) {
 			match(Token.PROCEDURE);
 			match(Token.IDENTIFICADOR);
-			encabezadoProcedimientoFac();
+			encabezadoProcedimiento();
 			bloque();
 			match(Token.PUNTOCOMA);
 			bloqueDeclaracionProcYFun();
@@ -225,25 +218,15 @@ public class Anasint {
 		else if (numeroTokenActual == Token.FUNCTION) {
 			match(Token.FUNCTION);
 			match(Token.IDENTIFICADOR);
-			encabezadoFuncionFac();
+			encabezadoFuncion();
 			bloque();
 			match(Token.PUNTOCOMA);
 			bloqueDeclaracionProcYFun();
 		}
 	}
-	
-	private void declaracionProcedimiento () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
-		encabezadoProcedimiento();
-		bloque();
-	}
+		
 	
 	private void encabezadoProcedimiento () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
-		match(Token.PROCEDURE);
-		match(Token.IDENTIFICADOR);
-		encabezadoProcedimientoFac();
-	}
-	
-	private void encabezadoProcedimientoFac () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
 		if (numeroTokenActual == Token.PUNTOCOMA) {
 			match(Token.PUNTOCOMA);			
 		}
@@ -295,18 +278,8 @@ public class Anasint {
 		}
 	}
 	
-	private void declaracionFuncion () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
-		encabezadoFuncion();
-		bloque();
-	}
 	
 	private void encabezadoFuncion () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
-		match(Token.FUNCTION);
-		match(Token.IDENTIFICADOR);
-		encabezadoFuncionFac();
-	}
-	
-	private void encabezadoFuncionFac () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
 		if (numeroTokenActual == Token.DOSPUNTOS) {
 			match(Token.DOSPUNTOS);
 			match(Token.IDENTIFICADOR);
@@ -517,13 +490,7 @@ public class Anasint {
 	}
 	
 	private void parametroActual () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
-		if (numeroTokenActual == Token.IDENTIFICADOR) {
-			match(Token.IDENTIFICADOR);
-			variableFac();
-		}
-		else {
-			expresion();
-		}
+		expresion();
 	}
 	
 	private void restoParametrosActuales () throws ErrorLexico, ErrorArchivo, ErrorSintactico {
