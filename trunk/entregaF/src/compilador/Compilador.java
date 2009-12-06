@@ -284,7 +284,7 @@ public class Compilador {
 						s.setTipoS(new Subrango(Integer.parseInt(lex), saux.getValorS(), TS.getNivelActual()));
 				}
 				else {
-						throw new ErrorSemantico(ErrorSemantico.LIM_ENT, getNumeroLinea(), getNumeroColumna());
+						throw new ErrorSemantico(ErrorSemantico.LIM_SUBRANGO_INV, getNumeroLinea(), getNumeroColumna());
 				}
 			}
 			else {
