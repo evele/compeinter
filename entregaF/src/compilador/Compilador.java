@@ -1037,8 +1037,7 @@ public class Compilador {
 	sintetizados s = new sintetizados();
 	sintetizados sExpF, sExpS;
 	
-		sExpS = expresionSimple(porValorH, idPredefH);
-		
+		sExpS = expresionSimple(porValorH, idPredefH);		
 		sExpF = expresionFac(sExpS.getTipoS(), porValorH, idPredefH);
 		s.setTipoS(sExpF.getTipoS());
 		
@@ -1046,7 +1045,7 @@ public class Compilador {
 	}
 	
 	private sintetizados expresionSimple (boolean porValorH, String idPredefH) throws ErrorLexico, ErrorArchivo, ErrorSintactico, ErrorSemantico, Exception{
-		sintetizados sintTer,sintESF,sintES = null;
+		sintetizados sintTer,sintESF,sintES = new sintetizados();
 		String e1,e2;
 		if (numeroTokenActual == Token.SUMA) {
 			match(Token.SUMA);
@@ -1084,7 +1083,7 @@ public class Compilador {
 		else {
 	
 			sintTer = termino(porValorH,idPredefH);			
-			sintESF = expresionSimpleFac(sintTer.getTipoS(),porValorH, idPredefH);			
+			sintESF = expresionSimpleFac(sintTer.getTipoS(),porValorH, idPredefH);	
 			if (compatibles(sintTer.getTipoS(),sintESF.getTipoS())){ //si el segundo es NULL también deberían ser compatibles, ojo al piojo				
 				sintES.setTipoS(sintTer.getTipoS());
 			}
@@ -1093,7 +1092,7 @@ public class Compilador {
 				 e2=ErrorSemantico.construirMsj(sintESF.getTipoS().toString());
 				throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
 			}
-		}
+		}		
 		return sintES;
 	}
 	
