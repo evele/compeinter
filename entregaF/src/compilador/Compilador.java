@@ -18,7 +18,7 @@ public class Compilador {
     {	
 	TS = new tablaSimbolos(this);
 	analizadorLexico = new AnaLex(fileIn);
-    tokenActual = analizadorLexico.getToken();	//pide al Analizador Lexico, el primer TOKEN. // tambien arreglado
+    numeroTokenActual = analizadorLexico.getToken().getNumeroToken();	//pide al Analizador Lexico, el primer TOKEN. // tambien arreglado
 	generador = new generador(fileOut);
     }
 	
@@ -33,7 +33,7 @@ public class Compilador {
 		Token tokenEsperado;
 		int lineaError, columnaError;
 		String lexemaEncontrado, lexemaEsperado, mensajeError;
-		
+				
 		if (numeroTokenActual == numeroToken) {
 			tokenActual = analizadorLexico.getToken();
 			numeroTokenActual = tokenActual.getNumeroToken();
@@ -79,7 +79,7 @@ public class Compilador {
 		
 		TS.apilarNivel();
 		p = new Programa(TS.getNivelActual());
-		System.out.println("llegue");
+		
 		match(Token.PROGRAM);
 		
 		sint.setIdS(tokenActual.getLexema());
