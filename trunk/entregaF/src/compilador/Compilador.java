@@ -919,7 +919,7 @@ public class Compilador {
 						}
 			}
 			else {
-						throw new ErrorSemantico("Asignación inválida", getNumeroLinea(), getNumeroColumna());
+						throw new ErrorSemantico(ErrorSemantico.ID_NO_DEC, getNumeroLinea(), getNumeroColumna(),idH);
 			}			
 		}
 		else if (numeroTokenActual == Token.PARENTESISABRE) {
@@ -1114,25 +1114,40 @@ public class Compilador {
 				if(TS.compatibles(tipoH,sES.getTipoS())) {
 					s.setTipoS(new Booleano(TS.getNivelActual()));
 				
-					if (tokenValue == Token.IGUAL) {						
-						generador.genInstSinArg("",generador.CMIG);
+					if (!(tipoH instanceof Booleano)) {
+						if (tokenValue == Token.IGUAL) {						
+							generador.genInstSinArg("",generador.CMIG);
+						}
+						else if (tokenValue == Token.MAYOR) {						
+							generador.genInstSinArg("",generador.CMMA);
+						}
+						else if (tokenValue == Token.MENOR) {						
+							generador.genInstSinArg("",generador.CMME);
+						}
+						else if (tokenValue == Token.MAYOROIGUAL) {						
+							generador.genInstSinArg("",generador.CMYI);
+						}
+						else if (tokenValue == Token.MENOROIGUAL) {						
+							generador.genInstSinArg("",generador.CMNI);
+						}
+						else if (tokenValue == Token.DISTINTO) {						
+							generador.genInstSinArg("",generador.CMDG);
+						}				
 					}
-					else if (tokenValue == Token.MAYOR) {						
-						generador.genInstSinArg("",generador.CMMA);
+					else {
+						if (tokenValue == Token.IGUAL) {						
+							generador.genInstSinArg("",generador.CMIG);
+						}
+						else if (tokenValue == Token.DISTINTO) {						
+							generador.genInstSinArg("",generador.CMDG);
+						}		
+						else{
+							String t1,t2;
+							t1=ErrorSemantico.construirMsj(tipoH.toString());
+							t2=ErrorSemantico.construirMsj(sES.getTipoS().toString());
+							throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),t1,t2);
+						}
 					}
-					else if (tokenValue == Token.MENOR) {						
-						generador.genInstSinArg("",generador.CMME);
-					}
-					else if (tokenValue == Token.MAYOROIGUAL) {						
-						generador.genInstSinArg("",generador.CMYI);
-					}
-					else if (tokenValue == Token.MENOROIGUAL) {						
-						generador.genInstSinArg("",generador.CMNI);
-					}
-					else if (tokenValue == Token.DISTINTO) {						
-						generador.genInstSinArg("",generador.CMDG);
-					}				
-					
 				}
 				else {
 					String t1,t2;
@@ -1165,18 +1180,24 @@ public class Compilador {
 						sint.setTipoS(new Booleano(TS.getNivelActual()));
 					}
 					 else {
-						e = ErrorSemantico.construirMsj(sintESF.getTipoS().toString());
-						throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP_ENTERO,getNumeroLinea(),getNumeroColumna(),"Entero",e);
+						 	String e1, e2;
+							e1 = ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
+							e2 = ErrorSemantico.construirMsj(sintESF.getTipoS().toString());
+							throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
 					 }
 				}
 				else {
-					e= ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
-					throw new ErrorSemantico(ErrorSemantico.TIPO_INV_OR,getNumeroLinea(),getNumeroColumna(),e);
+						String e1, e2;
+						e1 = ErrorSemantico.construirMsj(tipoH.toString());
+						e2 = ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
+						throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
 				}
 			}
 			else {
-				e = ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
-				throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP_ENTERO,getNumeroLinea(),getNumeroColumna(),"Entero",e);
+					String e1, e2;
+					e1 = ErrorSemantico.construirMsj(tipoH.toString());
+					e2 = ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
+					throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
 			}
 			
 			
@@ -1195,9 +1216,10 @@ public class Compilador {
 				if((sintESF.getTipoS() instanceof Entero) || (sintESF.getTipoS() instanceof Subrango)){
 					sint.setTipoS(new Entero(TS.getNivelActual()));
 				}
-				 else {
-					e = ErrorSemantico.construirMsj(sintESF.getTipoS().toString());
-					throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP_ENTERO,getNumeroLinea(),getNumeroColumna(),"Entero",e);
+				 else {String e1, e2;
+					e1 = ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
+					e2 = ErrorSemantico.construirMsj(sintESF.getTipoS().toString());
+					throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
 				 }
 			}
 			else {			
@@ -1221,9 +1243,10 @@ public class Compilador {
 				if((sintESF.getTipoS() instanceof Entero) || (sintESF.getTipoS() instanceof Subrango)){
 					sint.setTipoS(new Entero(TS.getNivelActual()));
 				}
-				 else {
-					e = ErrorSemantico.construirMsj(sintESF.getTipoS().toString());
-					throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP_ENTERO,getNumeroLinea(),getNumeroColumna(),"Entero",e);
+				 else {	String e1, e2;
+						e1 = ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
+						e2 = ErrorSemantico.construirMsj(sintESF.getTipoS().toString());
+						throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
 				 }
 			}
 			else {
@@ -1290,9 +1313,10 @@ public class Compilador {
 								if ((sTerF.getTipoS() instanceof Entero) || (sTerF.getTipoS() instanceof Subrango)) {
 										s.setTipoS(new Entero(TS.getNivelActual()));
 								}
-								else {
-										String t=ErrorSemantico.construirMsj(sTerF.getTipoS().toString());
-										throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP_ENTERO,getNumeroLinea(),getNumeroColumna(),"Entero",t);
+								else {String e1, e2;
+								e1 = ErrorSemantico.construirMsj(sFac.getTipoS().toString());
+								e2 = ErrorSemantico.construirMsj(sTerF.getTipoS().toString());
+								throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
 								}						
 						}
 						else {	
@@ -1307,26 +1331,28 @@ public class Compilador {
 						sFac = factor(porValorH, idPredefH);
 						if (compatibles(tipoH, sFac.getTipoS())) {
 								if (sFac.getTipoS() instanceof Booleano) {
-										match(Token.AND);
-										sFac = factor(porValorH, idPredefH);
+										
 										generador.genInstSinArg("", generador.CONJ);
 										sTerF = terminoFac(sFac.getTipoS(), porValorH, idPredefH);
 										if (sTerF.getTipoS() instanceof Booleano) {
 												s.setTipoS(new Booleano(TS.getNivelActual()));
 										}
-										else {
-												String t=ErrorSemantico.construirMsj(sTerF.getTipoS().toString());
-												throw new ErrorSemantico(ErrorSemantico.TIPO_INV_AND,getNumeroLinea(),getNumeroColumna(),t);
+										else {String e1, e2;
+												e1 = ErrorSemantico.construirMsj(tipoH.toString());
+												e2 = ErrorSemantico.construirMsj(sTerF.getTipoS().toString());
+												throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
 										}
 								}
-								else {
-										String t=ErrorSemantico.construirMsj(sFac.getTipoS().toString());
-										throw new ErrorSemantico(ErrorSemantico.TIPO_INV_AND,getNumeroLinea(),getNumeroColumna(),t);
+								else {	String e1, e2;
+										e1 = ErrorSemantico.construirMsj(tipoH.toString());
+										e2 = ErrorSemantico.construirMsj(sFac.getTipoS().toString());
+										throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
 								}
 						}
-						else {
-								String t=ErrorSemantico.construirMsj(sFac.getTipoS().toString());
-                                throw new ErrorSemantico(ErrorSemantico.TIPO_INV_AND,getNumeroLinea(),getNumeroColumna(),t);
+						else {	String e1, e2;
+								e1 = ErrorSemantico.construirMsj(tipoH.toString());
+								e2 = ErrorSemantico.construirMsj(sFac.getTipoS().toString());
+								throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
                         }
 					}			
 			}						
@@ -1347,12 +1373,17 @@ public class Compilador {
 		if (numeroTokenActual == Token.IDENTIFICADOR) {
 			idH = tokenActual.getLexema();
 			en = TS.getEntrada(idH);
-			match(Token.IDENTIFICADOR);
-			if ((en instanceof Variable) && (((Variable)en).getTipo() instanceof Arreglo)) {
-					generador.genInst1ArgCte("", generador.APCT, 0);
-			}
+			if (en != null){
+				match(Token.IDENTIFICADOR);
+				if ((en instanceof Variable) && (((Variable)en).getTipo() instanceof Arreglo)) {
+						generador.genInst1ArgCte("", generador.APCT, 0);
+				}
 			
-			s = factorFac(idH, porValorH, idPredefH);
+				s = factorFac(idH, porValorH, idPredefH);
+			}
+			else {
+				throw new ErrorSemantico(ErrorSemantico.ID_NO_DEC,getNumeroLinea(),getNumeroColumna(),idH);
+			}
 		}
 		else if (numeroTokenActual == Token.NUMERO) {
 			if (! porValorH) {
