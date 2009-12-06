@@ -183,7 +183,8 @@ public class Compilador {
 		}
 		else {
 			match(Token.RESTA); 
-			saux = ConstanteFac(); 
+			saux = ConstanteFac();
+			saux.setValorS(-saux.getValorS());
 			if (saux.getTipoS() instanceof Entero){
 				s = saux;
 			}
