@@ -48,7 +48,7 @@ public class ErrorSemantico extends Exception {
     public ErrorSemantico(String error, int nroFila, int nroCol,String encontrado) {
         super("\n\n" + 	"\n =============================================================================== \n " +
 		   "Error Semantico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error +	 ". (*    "  + encontrado+"    *)"+
-		"\n =============================================================================== \n\n");
+		"\n\n =============================================================================== \n\n");
     }
 
      /**
@@ -60,7 +60,7 @@ public class ErrorSemantico extends Exception {
     public ErrorSemantico(String error, int nroFila, int nroCol) {
         super(	"\n\n" + "\n =============================================================================== \n " +
         		"Error Semantico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error +	
-        		"\n =============================================================================== \n\n");
+        		"\n\n =============================================================================== \n\n");
     }    
  	
     
@@ -75,7 +75,7 @@ public class ErrorSemantico extends Exception {
     public ErrorSemantico(String error, int nroFila, int nroCol,String tipo1, String tipo2) {                       
         super("\n\n" + "\n =============================================================================== \n " +   
         	    "Error Semantico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error +	 ". ( "+tipo1+" - "+tipo2+" )"+
-        	"\n =============================================================================== \n\n");
+        	"\n\n =============================================================================== \n\n");
 
     }  
     /**
