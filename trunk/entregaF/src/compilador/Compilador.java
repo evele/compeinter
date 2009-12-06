@@ -13,7 +13,6 @@ public class Compilador {
     private int numeroTokenActual;
     private tablaSimbolos TS;
     public generador generador;  //parche el public
-	
 	public Compilador(String fileIn, String fileOut) throws ErrorLexico, Exception    
     {	
 	TS = new tablaSimbolos(this);
