@@ -27,7 +27,6 @@ public class tablaSimbolos {
     private Compilador comp;	// Referencia al compilador para obtener la linea y columa en caso de una excepcion.
 	private static int MaxMepa = 31999;
 
-    /** Creates a new instance of tablaSimbolos */
     public tablaSimbolos(Compilador c)
     {
 	comp = c;
@@ -36,10 +35,6 @@ public class tablaSimbolos {
 	setTope(-1);
     }
 
-   /*****************************************************
-    *		AUXILIARES    Privados
-    ******************************************************/
-    
     /**
      * @return el nivel lexico que utilizamos en la implementacion, que es el indice a usar en el Vector.
      * Estara entre los valores [0..size(Vector)].
@@ -74,12 +69,6 @@ public class tablaSimbolos {
     private void setTope(int Tope) {
         this.tope = Tope;
     }
-    
-    
-    
-    /*****************************************************
-    *		Metodos Publicos
-    ******************************************************/  
     
     /**
     * @return el nivel lexico que utilizamos en el disenio, que es el indice a usar en la Tabla de Simbolos.
@@ -130,11 +119,6 @@ public class tablaSimbolos {
 	     throw new ErrorSemantico(ErrorSemantico.ID_DUP, comp.getNumeroLinea(),comp.getNumeroColumna(),id);
     }
 
-  /**
-  * @return el objeto asociado al id dado buscando de forma global, es decir, 
-  * desde el nivel lexico actual hacia afuera hasta encontrar.
-  * Si no existe en la tabla levanta una excepcion .    
-  */   
     public entrada getEntrada(String id)
     {
 	HashMap nivel;    
@@ -162,86 +146,7 @@ public class tablaSimbolos {
 
 	return ent;      
   }
- 
-   
-   
-    /***********************************************
-     *			CONSULTAS
-     ***********************************************
-    
-    public boolean esArreglo(entrada ent)
-    {
-	return (ent instanceof Arreglo);
-    }
-    
-    public boolean esBooleano(entrada ent)
-    {
-	return (ent instanceof Booleano);
-    }    
-    
-    public boolean esCaracter(entrada ent)
-    {
-	return (ent instanceof caracter);
-    } 
-    
-    public boolean esConstante(entrada ent)
-    {
-	return (ent instanceof Constante);
-    }
-    
-    public boolean esEntero(entrada ent)
-    {
-	return (ent instanceof Entero);
-    }
-    
-    public boolean esFuncion(entrada ent)
-    {
-	return (ent instanceof Funcion);
-    }
-    
-    public boolean esParametro(entrada ent)
-    {
-	return (ent instanceof parametro);
-    }
-    
-    public boolean esProcedimiento(entrada ent)
-    {
-	return (ent instanceof Procedimiento);
-    }
-    
-    public boolean esPrograma(entrada ent)
-    {
-	return (ent instanceof programa);
-    }
-    
-    public boolean esSubrango(entrada ent)
-    {
-	return (ent instanceof Subrango);
-    }
-    
-    public boolean esTipo(entrada ent)
-    {
-	return (ent instanceof tipo);
-    }
-    
-    public boolean esTipoSimple(entrada ent)
-    {
-	return (ent instanceof tipoSimple);
-    }
-    
-    public boolean esVariable(entrada ent)
-    {
-	return (ent instanceof variable);
-    }
-   
-    public boolean esConstanteEntera(entrada ent)
-    {
-	// true si es una Constante de tipo entera o Subrango
-	return (ent instanceof Constante &&
-		(((Constante)ent).getType() instanceof Entero ||
-		((Constante)ent).getType() instanceof Subrango));	
-    }*/
-    
+     
     public int getMaxMepa(){
 		return MaxMepa;
     }
@@ -266,10 +171,6 @@ public class tablaSimbolos {
 		id.toUpperCase().compareTo("READLN")==0);
     }
     
-   
-    /**
-    * @return true o false, si dados dos tipos son compatibles.
-    */
     public boolean compatibles(tipo t1, tipo t2)
     { 
 	if(t1 instanceof Arreglo && t2 instanceof Arreglo)
@@ -310,7 +211,7 @@ public class tablaSimbolos {
 		nivel.put("MAXINT",m);
         nivel.put("TRUE",t);
         nivel.put("FALSE",f);
-        //nivel.put("INTEGER",i);
+       
         nivel.put("INTEGER", s);
         nivel.put("BOOLEAN",b);
     	
@@ -323,7 +224,7 @@ public class tablaSimbolos {
         nivel.put("WRITELN",new Procedimiento(null, "", getNivelLex()));        
    }   
    
-   public void insertarParametros(ArrayList listaParam, ArrayList listaIds) throws ErrorSemantico{ //pateado para más adelante by Eric
+   public void insertarParametros(ArrayList listaParam, ArrayList listaIds) throws ErrorSemantico{ 
    ListIterator itNva, itIds;
    Parametro param;
    
@@ -336,14 +237,14 @@ public class tablaSimbolos {
 		}
    }
    
-   public entrada getEntradaNivelActual(String id){ //pateado para más adelante by Eric
+   public entrada getEntradaNivelActual(String id){ 
 	HashMap nivel;    
-	ListIterator I; // para poder recorrer la Tabla de Simbolos.
+	ListIterator I; 
 	entrada entrada = null;
 	   
 	I = getTS().listIterator(getTope()+1);//Comienza en tope +1 asi cuando realiza previous da el elemento del tope.-
 
-	nivel = (HashMap) I.previous();	//Da el valor en el tope.
+	nivel = (HashMap) I.previous();	
 
 	if (nivel.containsKey(id.toUpperCase())) {
 		entrada = (entrada) nivel.get(id.toUpperCase());

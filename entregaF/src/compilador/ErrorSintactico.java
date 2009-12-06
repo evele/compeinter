@@ -13,7 +13,7 @@ public class ErrorSintactico extends Exception {
 	
 	// Contruye el mensaje de error asociado a un error sintactico. 
 	public static String mensajeError(int nroFila, int nroCol, String esperado, String encontrado) {
-        String msj = "Error Sintactico en (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + 
+        String msj = "Error Sintactico: en (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + 
 		" se esperaba: " + esperado + " y se encontro: " + encontrado;
         
         return(msj);

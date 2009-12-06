@@ -1,11 +1,9 @@
-//version factorF
 package compilador;
 import java.awt.Color;
 import java.io.PrintStream;
 
-/**
- * Clase que implementa el manejo de los errores que pueden surgir durante el Analisi Semantico
- */
+
+ /* Clase que implementa el manejo de los errores que pueden surgir durante el Analisi Semantico*/
 public class ErrorSemantico extends Exception {    
         
     public static final String ID_INV="Identificador invalido";
@@ -38,25 +36,14 @@ public class ErrorSemantico extends Exception {
     public static final String CTE_ENT="Se esperaba una constante de tipo entero";
     
     
-    /**
-     * Constructor de un manejador de errores semanticos.
-     * @param error tipo de error 
-     * @param nroFila Indica el nro de la fila del codigo en donde se produjo el error.
-     * @param nroCol Indica el nro de la columna del codigo en donde se produjo el error.
-     * @param encontrado lexema encontrado
-     */    
+    //Constructor de un manejador de errores semanticos.      
     public ErrorSemantico(String error, int nroFila, int nroCol,String encontrado) {
         super("\n\n" + 	"\n =============================================================================== \n " +
 		   "Error Semantico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error +	 ". (*    "  + encontrado+"    *)"+
 		"\n\n =============================================================================== \n\n");
     }
 
-     /**
-     * Constructor de un manejador de errores semanticos.
-     * @param error tipo de error
-     * @param nroFila Indica el nro de la fila del codigo en donde se produjo el error.
-     * @param nroCol Indica el nro de la columna del codigo en donde se produjo el error.
-     */    
+     //Constructor de un manejador de errores semanticos.   
     public ErrorSemantico(String error, int nroFila, int nroCol) {
         super(	"\n\n" + "\n =============================================================================== \n " +
         		"Error Semantico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error +	
@@ -64,32 +51,18 @@ public class ErrorSemantico extends Exception {
     }    
  	
     
-    /**
-     * Constructor de un manejador de errores semanticos asociados a errores de tipos
-     * @param error tipo de error
-     * @param nroFila Indica el nro de la fila del codigo en donde se produjo el error.
-     * @param nroCol Indica el nro de la columna del codigo en donde se produjo el error.
-     * @param tipo1 tipo que no conforma con tipo2
-     * @param tipo2 tipo que no conforma con tipo1
-     */    
+    //Constructor de un manejador de errores semanticos asociados a errores de tipos  
     public ErrorSemantico(String error, int nroFila, int nroCol,String tipo1, String tipo2) {                       
         super("\n\n" + "\n =============================================================================== \n " +   
         	    "Error Semantico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error +	 ". ( "+tipo1+" - "+tipo2+" )"+
         	"\n\n =============================================================================== \n\n");
 
     }  
-    /**
-     * Crea el formato asociado al error semantico.
-     * @param tipo jerarquia de tipos a formatear
-     * @return mensaje asociado el error.
-     */
+    //Crea el formato asociado al error semantico.
     public static String construirMsj(String tipo) {                       
         
-        String jerarq = tipo.split("@")[0];//.split(".")[1];                
-        String type = jerarq.substring(14); //le sacamos el substring "tablaSimbolos"
-        //String[] ar=jerarq.split(".");
-        
-        
+        String jerarq = tipo.split("@")[0];                
+        String type = jerarq.substring(14);
         return(type);
     }        
 }
