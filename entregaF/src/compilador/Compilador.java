@@ -860,9 +860,9 @@ public class Compilador {
 			match(Token.ASIGNACION);
 			porValorH = true;
 			
-			if ((ent instanceof Variable) || (ent instanceof Parametro)) {
+			if ((ent instanceof Variable) || (ent instanceof Parametro)) {								
 						if ((((Variable)ent).getTipo() instanceof Entero) || (((Variable)ent).getTipo() instanceof Booleano) || (((Variable)ent).getTipo() instanceof Subrango)) {
-								sint = expresion(porValorH, "");
+							sint = expresion(porValorH, "");
 								if (compatibles(((Variable)ent).getTipo(), sint.getTipoS())) {
 										if (((Variable)ent).getTipo() instanceof Subrango) {
 												li = ((Subrango)((Variable)ent).getTipo()).getLimiteInf();
@@ -1038,6 +1038,7 @@ public class Compilador {
 	sintetizados sExpF, sExpS;
 	
 		sExpS = expresionSimple(porValorH, idPredefH);
+		
 		sExpF = expresionFac(sExpS.getTipoS(), porValorH, idPredefH);
 		s.setTipoS(sExpF.getTipoS());
 		
@@ -1082,9 +1083,9 @@ public class Compilador {
 		}
 		else {
 	
-			sintTer = termino(porValorH,idPredefH);
-			sintESF = expresionSimpleFac(sintTer.getTipoS(),porValorH, idPredefH);
-			if (compatibles(sintTer.getTipoS(),sintESF.getTipoS())){ //si el segundo es NULL también deberían ser compatibles, ojo al piojo
+			sintTer = termino(porValorH,idPredefH);			
+			sintESF = expresionSimpleFac(sintTer.getTipoS(),porValorH, idPredefH);			
+			if (compatibles(sintTer.getTipoS(),sintESF.getTipoS())){ //si el segundo es NULL también deberían ser compatibles, ojo al piojo				
 				sintES.setTipoS(sintTer.getTipoS());
 			}
 			else {
@@ -1236,6 +1237,9 @@ public class Compilador {
 				e = ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
 				throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP_ENTERO,getNumeroLinea(),getNumeroColumna(),"Entero",e);
 			}
+		}
+		else { //lambda
+			sint.setTipoS(tipoH);
 		}
 		return sint;
 	}
