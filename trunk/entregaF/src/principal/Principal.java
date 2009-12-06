@@ -28,7 +28,7 @@ public class Principal {
         "=============================================\n";
                          
 		try {
-			if (args.length >= 2) // controla que hallan ingresado dos parametros
+			if (args.length >= 2) // controla que hayan ingresado dos parametros
 			{
 				fileIn = args[0];
 				fileOut= args[1];
