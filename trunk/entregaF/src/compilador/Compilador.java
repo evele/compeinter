@@ -878,7 +878,7 @@ public class Compilador {
 								else {
 										String t1,t2;
                                         t1=ErrorSemantico.construirMsj(((Variable)ent).getTipo().toString());
-                                        t2=ErrorSemantico.construirMsj(sint.getTipoS().toString());
+                                        t2=ErrorSemantico.construirMsj(sint.getTipoS().toString());                                        
                                         throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP, getNumeroLinea(), getNumeroColumna(),t1,t2);
 								}
 						}
@@ -1099,7 +1099,7 @@ public class Compilador {
 	
 	int tokenValue;
 	sintetizados s = new sintetizados();
-	sintetizados sES = null;
+	sintetizados sES;
 	
 		if (esOperadorRelacional(numeroTokenActual)) {
 		
@@ -1107,39 +1107,32 @@ public class Compilador {
 				throw new ErrorSemantico(ErrorSemantico.EXP_POR_VALOR,getNumeroLinea(),getNumeroColumna());
 			}
 			else{
-							
-				if (compatibles(tipoH, sES.getTipoS())) {
-			
-					if (numeroTokenActual == Token.IGUAL) {
-						match(Token.IGUAL);
-						sES = expresionSimple(porValorH,idPredefH);
+				tokenValue = tokenActual.getNumeroToken();
+				match(numeroTokenActual);
+				sES = expresionSimple(porValorH,idPredefH);
+				
+				if(TS.compatibles(tipoH,sES.getTipoS())) {
+					s.setTipoS(new Booleano(TS.getNivelActual()));
+				
+					if (tokenValue == Token.IGUAL) {						
 						generador.genInstSinArg("",generador.CMIG);
 					}
-					else if (numeroTokenActual == Token.MAYOR) {
-						match(Token.MAYOR);
-						sES = expresionSimple(porValorH,idPredefH);
+					else if (tokenValue == Token.MAYOR) {						
 						generador.genInstSinArg("",generador.CMMA);
 					}
-					else if (numeroTokenActual == Token.MENOR) {
-						match(Token.MENOR);
-						sES = expresionSimple(porValorH,idPredefH);
+					else if (tokenValue == Token.MENOR) {						
 						generador.genInstSinArg("",generador.CMME);
 					}
-					else if (numeroTokenActual == Token.MAYOROIGUAL) {
-						match(Token.MAYOROIGUAL);
-						sES = expresionSimple(porValorH,idPredefH);
+					else if (tokenValue == Token.MAYOROIGUAL) {						
 						generador.genInstSinArg("",generador.CMYI);
 					}
-					else if (numeroTokenActual == Token.MENOROIGUAL) {
-						match(Token.MENOROIGUAL);
-						sES = expresionSimple(porValorH,idPredefH);
+					else if (tokenValue == Token.MENOROIGUAL) {						
 						generador.genInstSinArg("",generador.CMNI);
 					}
-					else if (numeroTokenActual == Token.DISTINTO) {
-						match(Token.DISTINTO);
-						sES = expresionSimple(porValorH,idPredefH);
+					else if (tokenValue == Token.DISTINTO) {						
 						generador.genInstSinArg("",generador.CMDG);
 					}				
+					
 				}
 				else {
 					String t1,t2;
@@ -1207,9 +1200,11 @@ public class Compilador {
 					throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP_ENTERO,getNumeroLinea(),getNumeroColumna(),"Entero",e);
 				 }
 			}
-			else {
-				e = ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
-				throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP_ENTERO,getNumeroLinea(),getNumeroColumna(),"Entero",e);
+			else {			
+				String e1, e2;
+				e1 = ErrorSemantico.construirMsj(tipoH.toString());
+				e2 = ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
+				throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
 			}
 		}
 		else if (numeroTokenActual == Token.RESTA) {
@@ -1232,8 +1227,10 @@ public class Compilador {
 				 }
 			}
 			else {
-				e = ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
-				throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP_ENTERO,getNumeroLinea(),getNumeroColumna(),"Entero",e);
+				String e1, e2;
+				e1 = ErrorSemantico.construirMsj(tipoH.toString());
+				e2 = ErrorSemantico.construirMsj(sintTer.getTipoS().toString());
+				throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);
 			}
 		}
 		else { //lambda
@@ -1257,7 +1254,8 @@ public class Compilador {
 	private sintetizados terminoFac (tipo tipoH, boolean porValorH, String idPredefH) throws ErrorLexico, ErrorArchivo, ErrorSintactico, ErrorSemantico, Exception {
 	
 	sintetizados s = new sintetizados();
-	sintetizados sFac = null, sTerF;
+	sintetizados sFac, sTerF;
+	boolean esMult = true;
 	
 		if ((numeroTokenActual == Token.MULTIPLICACION) || (numeroTokenActual == Token.DIV) || (numeroTokenActual == Token.AND)) {
 		
@@ -1267,15 +1265,23 @@ public class Compilador {
 			else {				
 					if ((numeroTokenActual == Token.MULTIPLICACION) || (numeroTokenActual == Token.DIV)){
 						
+						if (numeroTokenActual == Token.MULTIPLICACION) {
+									match(Token.MULTIPLICACION);									
+						}
+						else { // es DIV
+									match(Token.DIV);
+									esMult = false;
+						}
+						sFac = factor(porValorH, idPredefH);					
+						
 						if (compatibles(tipoH, sFac.getTipoS())) {
 								
-								if (numeroTokenActual == Token.MULTIPLICACION) {
-										match(Token.MULTIPLICACION);		
-										sFac = factor(porValorH, idPredefH);
+								if (esMult) {
+									generador.genInstSinArg("", generador.MULT);
 								}
-								else { // es DIV
-										match(Token.DIV);
-										sFac = factor(porValorH, idPredefH);
+								else {
+									generador.genInstSinArg("", generador.DIVC);
+									generador.genInstSinArg("", generador.DIVI);
 								}
 								generador.genInst2ArgCte("", generador.CONT, -TS.getMaxMepa(), TS.getMaxMepa()-1);
 								
@@ -1290,11 +1296,15 @@ public class Compilador {
 								}						
 						}
 						else {	
-								String t=ErrorSemantico.construirMsj(sFac.getTipoS().toString());
-                                throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP_ENTERO,getNumeroLinea(),getNumeroColumna(),"Entero",t);
+								String e1, e2;
+								e1 = ErrorSemantico.construirMsj(tipoH.toString());
+								e2 = ErrorSemantico.construirMsj(sFac.getTipoS().toString());
+								throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP,getNumeroLinea(),getNumeroColumna(),e1,e2);								
                         }
 					}
 					else { // es AND
+						match(Token.AND);
+						sFac = factor(porValorH, idPredefH);
 						if (compatibles(tipoH, sFac.getTipoS())) {
 								if (sFac.getTipoS() instanceof Booleano) {
 										match(Token.AND);
