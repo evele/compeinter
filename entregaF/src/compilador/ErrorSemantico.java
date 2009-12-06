@@ -46,24 +46,23 @@ public class ErrorSemantico extends Exception {
      * @param encontrado lexema encontrado
      */    
     public ErrorSemantico(String error, int nroFila, int nroCol,String encontrado) {
-        super("\n\n" +
-                 "\n ******************************************************************************* \n " +
-		   "Error Semantico en: (Fila: " + nroFila +  " Columna: "+ nroCol + ")\n\t" + error +	 ". (*    "  + encontrado+"    *)"+
-		"\n ******************************************************************************* \n");
+        super("\n\n" + 	"\n =============================================================================== \n " +
+		   "Error Semantico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error +	 ". (*    "  + encontrado+"    *)"+
+		"\n =============================================================================== \n\n");
     }
-    
-    /**
+
+     /**
      * Constructor de un manejador de errores semanticos.
      * @param error tipo de error
      * @param nroFila Indica el nro de la fila del codigo en donde se produjo el error.
      * @param nroCol Indica el nro de la columna del codigo en donde se produjo el error.
      */    
     public ErrorSemantico(String error, int nroFila, int nroCol) {
-        super("\n\n" +
-                 "\n ******************************************************************************* \n " +
-		   "Error Semantico en: (Fila: " + nroFila +  " Columna: "+ nroCol + ")\n\t" + error +	
-		"\n ******************************************************************************* \n");
+        super(	"\n\n" + "\n =============================================================================== \n " +
+        		"Error Semantico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error +	
+        		"\n =============================================================================== \n\n");
     }    
+ 	
     
     /**
      * Constructor de un manejador de errores semanticos asociados a errores de tipos
@@ -74,13 +73,11 @@ public class ErrorSemantico extends Exception {
      * @param tipo2 tipo que no conforma con tipo1
      */    
     public ErrorSemantico(String error, int nroFila, int nroCol,String tipo1, String tipo2) {                       
-        super("\n\n" +
-                 "\n ******************************************************************************* \n " +
-		   "Error Semantico en: (Fila: " + nroFila +  " Columna: "+ nroCol + ")\n\t" + error +	 ". ( "+tipo1+" - "+tipo2+" )"+
-		"\n ******************************************************************************* \n");
-    }    
-   
-    
+        super("\n\n" + "\n =============================================================================== \n " +   
+        	    "Error Semantico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error +	 ". ( "+tipo1+" - "+tipo2+" )"+
+        	"\n =============================================================================== \n\n");
+
+    }  
     /**
      * Crea el formato asociado al error semantico.
      * @param tipo jerarquia de tipos a formatear
