@@ -769,8 +769,8 @@ public class Compilador {
 	boolean porValorH;
 	sintetizados sint;
 	
-		if (numeroTokenActual == Token.IDENTIFICADOR) {
-			idH = tokenActual.getLexema();
+		if (numeroTokenActual == Token.IDENTIFICADOR) {		
+			idH = tokenActual.getLexema();			
 			match(Token.IDENTIFICADOR);
 			sentenciaSimple(idH);
 		}
@@ -795,7 +795,7 @@ public class Compilador {
                 throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP, getNumeroLinea(), getNumeroColumna(),"Booleano",t);
 			}
 			
-			sentencia();
+			sentencia();			
 			restoSentenciaIf(labelH);
 		}
 		else if (numeroTokenActual == Token.WHILE) {
