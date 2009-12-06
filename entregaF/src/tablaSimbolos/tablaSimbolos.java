@@ -303,13 +303,15 @@ public class tablaSimbolos {
         Constante f = new Constante(new Booleano(getNivelActual()), 0,getNivelActual());   //FALSE=0    
         Entero i = new Entero(getNivelActual());
         Booleano b = new Booleano(getNivelActual());    
+        Subrango s = new Subrango(-MaxMepa,MaxMepa,getNivelActual());
         
         nivel = (HashMap) TS.get(getTope());  // recupera la hash que esta en el tope
 	
 		nivel.put("MAXINT",m);
         nivel.put("TRUE",t);
         nivel.put("FALSE",f);
-        nivel.put("INTEGER",i);
+        //nivel.put("INTEGER",i);
+        nivel.put("INTEGER", s);
         nivel.put("BOOLEAN",b);
     	
         nivel.put("SUCC",new Funcion(null, 0, null, "", getNivelActual()));     
