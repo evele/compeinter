@@ -404,7 +404,7 @@ public class Compilador {
 			match(Token.OF);
 			sComp = tipoSimple();
 			if (sInd.getTipoS() instanceof Subrango) {
-					s.setTipoS(new Arreglo(sComp.getTipoS(),sInd.getLimiteInfS(),sInd.getLimiteSupS(),TS.getNivelActual()));			
+					s.setTipoS(new Arreglo(sComp.getTipoS(),((Subrango)sInd.getTipoS()).getLimiteInf(),((Subrango)sInd.getTipoS()).getLimiteSup(),TS.getNivelActual()));			
 			}
 			else {					
 					String t = ErrorSemantico.construirMsj(sInd.getTipoS().toString());
@@ -634,7 +634,7 @@ public class Compilador {
 		}
 		else {
 			sGrupoP = grupoParametros();
-			porValor = false;
+			porValor = true;
 		}
 		
 		listIds = sGrupoP.getListaIdsS().listIterator();
@@ -653,6 +653,8 @@ public class Compilador {
 			}
 		}
 		sGrupoP.setListaFormalesS(listaF);
+		sGrupoP.setOffsetS(offsetH);
+		sGrupoP.setEspacioS(espacio);
 		return sGrupoP;
 	}
 	
@@ -724,6 +726,8 @@ public class Compilador {
 		else {
 			sintRPF = new sintetizados ();
 			sintRPF.setOffsetS(0);
+			sintRPF.setEspacioS(0); //supongo que esto es lamda y que va a andar :)
+			sintRPF.setListaFormalesS(new ArrayList());
 		}
 		return sintRPF;
 	}
