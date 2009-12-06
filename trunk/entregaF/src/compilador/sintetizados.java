@@ -3,7 +3,6 @@
  * Posee como atributo una lista la cual es retornada por los procedimientos,
  * que representan las reglas del EDT, con los atributos que sintetiza cada uno.
  */
-
 package compilador;
 import java.util.Vector;
 import tablaSimbolos.tipo;
@@ -28,10 +27,6 @@ private Vector params;
 	setParams(new Vector());
     }        
     
-    /**
-     * 
-     * @param t 
-     */
     public void setTipoS(tipo t)
     {        
         try
@@ -44,20 +39,12 @@ private Vector params;
                 getParams().add(t);
         }
     }
-    
-    /**
-     * 
-     * @return 
-     */
+       
     public tipo getTipoS()
     {
 	return (tipo) getParams().get(0);
     }
-    
-    /**
-     * 
-     * @param L 
-     */
+       
     public void setListaFormalesS(ArrayList L)
     {
         try {
@@ -69,20 +56,12 @@ private Vector params;
             getParams().add(L);
         }
     }
-    
-    /**
-     * 
-     * @return 
-     */
+   
     public ArrayList getListaParametrosFormalesS()
     {
 	return (ArrayList) getParams().get(1);
     }
     
-    /**
-     * 
-     * @param off 
-     */
     public void setOffsetS(int off)
     {
         try {
@@ -94,19 +73,11 @@ private Vector params;
         }
     }
     
-    /**
-     * 
-     * @return 
-     */
     public int getOffsetS()
     {
 	return ((Integer) getParams().get(2)).intValue();
     }
-    
-    /**
-     * 
-     * @param L 
-     */
+   
     public void setListaIdsS(ArrayList L)
     {
         try{
@@ -116,20 +87,13 @@ private Vector params;
             getParams().add(L);
         }
     }
-    
-    /**
-     * 
-     * @return 
-     */
+  
     public ArrayList getListaIdsS()
     {
 	return (ArrayList) getParams().get(3);
     }
     
-    /**
-     * 
-     * @param t 
-     */
+    
     public void setRetornoS(tipo t)
     {
         try{
@@ -140,19 +104,13 @@ private Vector params;
         }
     }
     
-    /**
-     * 
-     * @return 
-     */
+    
     public TipoSimple getRetornoS()
     {
 	return (TipoSimple) getParams().get(4);
     }
 
-    /**
-     * Setter del atributo sintetizado 'espacio'
-     * @param e valor para el atributo sintetizado 'espacio' 
-     */
+   
     public void setEspacioS(int e)
     {
         try{
@@ -163,19 +121,13 @@ private Vector params;
         }
     }
     
-    /**
-     * Getter del atributo sintetizado 'espacio'
-     * @return atributo sintetizado 'espacio'
-     */
+   
     public int getEspacioS()
     {
 	return ((Integer) getParams().get(5)).intValue();
     }
     
-    /**
-     * Setter del atributo sintetizado 'value'
-     * @param value valor para el atributo sintetizado 'value'
-     */
+    
     public void setValorS(int value)
     {   try{
             getParams().add(6,new Integer(value));   }
@@ -185,19 +137,11 @@ private Vector params;
         }
     }
     
-    /**
-     * Getter del atributo sintetizado 'value'
-     * @return el atributo sintetizado 'value' 
-     */
+   
     public int getValorS()
     {   return ((Integer) getParams().get(6)).intValue();  }
 	
-    /**
-     * Setter del atributo sintetizado 'signo'
-     * 1 representa el signo +
-     * 0 representa el singo -
-     * @param value valor para el atributo sintetizado 'signo'
-     */
+ 
     public void setSignoS(int value)
     {   try{getParams().add(7,new Integer(value));   }
         catch(ArrayIndexOutOfBoundsException a){
@@ -206,24 +150,15 @@ private Vector params;
         }
     }
     
-    /**
-     * Getter del atributo sintetizado 'signo'
-     * @return el atributo sintetizado 'signo'
-     */
+    
     public int getSignoS()
     {   return ((Integer) getParams().get(7)).intValue();  }
     
-    /**
-     * Determina si el signo sintetizado es el signo menos
-     * @return si el signo sintetizado es el signo menos
-     */
+    
     public boolean esSignoMenos()
     {   return getSignoS()==0;  }
     
-    /**
-     * Setter del limite inferior de un subrango
-     * @param value valor para el limite inferior de un subrango
-     */
+   
     public void setLimiteInfS(int value)
     {   try{getParams().add(8,new Integer(value));   }
         catch(ArrayIndexOutOfBoundsException a){
@@ -232,17 +167,11 @@ private Vector params;
         }
     }
     
-    /**
-     * Getter del limite inferior de un subrango
-     * @return el limite inferior de un subrango
-     */
+   
     public int getLimiteInfS()
     {   return ((Integer) getParams().get(8)).intValue();  }   
     
-    /**
-     * Setter del limite superior de un subrango
-     * @param value valor para el limite superior de un subrango
-     */
+   
     public void setLimiteSupS(int value)
     {   try{getParams().add(9,new Integer(value));   }
         catch(ArrayIndexOutOfBoundsException a){
@@ -251,17 +180,11 @@ private Vector params;
         }
     }
     
-    /**
-     * Getter del limite superior en el caso de un Subrango
-     * @return el limite superior de un subrango
-     */
+    
     public int getLimiteSupS()
     {   return ((Integer) getParams().get(9)).intValue();  }   
     
-    /**
-     * 
-     * @param id 
-     */
+  
     public void setIdS(String id)
     {
         try{
@@ -275,49 +198,30 @@ private Vector params;
 
     }
     
-    /**
-     * 
-     * @return 
-     */
+    
     public String getIdS()
     {
 	return (String) getParams().get(10);
     }
     
-    /**
-     * Determina si el tipo sintetizado es nulo.
-     * @return verdadero o falso si el tipo siintetizado es nulo
-     */
+    
     public boolean typeSNulo()
     {   return getTipoS()==null;    }
     
-    //public void setT
-
-    /**
-     * Getter de los parametros sintetizados
-     * @return lista de parametros sintetizados
-     */
+  
+    
     public Vector getParams() {
         return params;
     }
 
-    /**
-     * Setter de la lista de parametros sintetizados.
-     * @param params lista de parametros sintetizados
-     */
+    
     public void setParams(Vector params) {
         this.params = params;
     }
     
-    /**
-     * 
-     * @param id 
-     */
+    
     public void agregarID(String id)
     {
-//        getListaIdsS().add(id);
-	
-	// agrega en la posicion 0 pq los id se insertan en orden inverzo
         getListaIdsS().add(0, id);	
     }
 

@@ -35,13 +35,13 @@ public class ErrorLexico extends Exception {
         	o = String.valueOf(o);        	
         }
     	if (((String) o).startsWith("{")) {
-    		msj = "Error Lexico en: (Fila: " + nroFila +  ",Columna: "+ nroCol + ")\n\t" + error + " {";
+    		msj = "Error Lexico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error + " {";
     	}
     	else if (((String) o).startsWith("(*")) {
-    		msj = "Error Lexico en: (Fila: " + nroFila +  ",Columna: "+ nroCol + ")\n\t" + error + " (*";
+    		msj = "Error Lexico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error + " (*";
     	}    		
     	else {
-    		msj = "Error Lexico en: (Fila: " + nroFila +  ",Columna: "+ nroCol + ")\n\t" + error;
+    		msj = "Error Lexico en: (fila: " + nroFila +  " columna: "+ nroCol + ")\n\t" + error;
     		if (o != null)
             msj= msj + o;
     	}

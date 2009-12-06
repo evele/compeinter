@@ -24,10 +24,7 @@ public class writer {
          throw new IOException("Se produjo un error al cerrar el archivo de salida (MEPA).");
      }      
    }        
-
-    /**
-     * Creates a new instance of writer
-     */
+   
     public writer(String NombreArchivo) throws IOException {
       try{  
         this.NombreArchivo=NombreArchivo;

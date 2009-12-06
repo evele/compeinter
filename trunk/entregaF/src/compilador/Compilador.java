@@ -532,7 +532,9 @@ public class Compilador {
 			match(Token.PROCEDURE);
 			lex = tokenActual.getLexema();
 			match(Token.IDENTIFICADOR);
+			System.out.println("llegue 1");
 			sintEncab = encabezadoProcedimiento();
+			System.out.println("llegue 2");
 			longitud = sintEncab.getEspacioS();
 			
 			entrada = TS.getEntradaNivelActual(lex);
@@ -547,7 +549,7 @@ public class Compilador {
 			 }
 			else throw new ErrorSemantico(ErrorSemantico.ID_DUP,getNumeroLinea(),getNumeroColumna(),lex);
 
-			
+			System.out.println("llegue 3");
 			sintBloque = bloque();
 			match(Token.PUNTOCOMA);
 			 

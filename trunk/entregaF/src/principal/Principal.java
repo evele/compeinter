@@ -13,9 +13,6 @@ public class Principal {
     public Principal() {
     }
     
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args){
     
 		Compilador comp=null;
@@ -35,8 +32,7 @@ public class Principal {
 				comp = new Compilador(fileIn, fileOut);            
 				comp.analizar(); //Analiza sintactica y semanticamente
 				System.out.println(resultado + "\nEl programa: " + fileIn + " es Sintactica y Semanticamente Correcto." +
-								"\nEl codigo MEPa generado se encuentra en: "+ fileOut + ".");
-				//codigo luego del END ?? le hacemos algo?? no recuerdo
+								"\nEl codigo MEPa generado se encuentra en: "+ fileOut + ".");			
 			}
 			else System.out.println("\nError: Cantidad invalida de argumentos." );
 		}	
