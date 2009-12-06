@@ -142,7 +142,7 @@ public class Compilador {
 	}
 	
 	private sintetizados Constante () throws ErrorLexico, ErrorArchivo, ErrorSintactico, ErrorSemantico {
-		sintetizados saux = null,s = new sintetizados();	
+		sintetizados saux = new sintetizados(),s = new sintetizados();	
 		String lex = tokenActual.getLexema();
 		entrada entrada;
 		
@@ -690,7 +690,7 @@ public class Compilador {
 	}
 	
 	private sintetizados identificadores () throws ErrorLexico, ErrorArchivo, ErrorSintactico, ErrorSemantico {
-		sintetizados sintIdFac,sintId = null;
+		sintetizados sintIdFac,sintId = new sintetizados();
 		String lex;
 		
 		lex = tokenActual.getLexema();
@@ -1391,7 +1391,7 @@ public class Compilador {
 	}
 	
 	private sintetizados factorFac (String identificadorH,boolean porValorH, String idPredH) throws ErrorLexico, ErrorArchivo, ErrorSintactico, ErrorSemantico, Exception {
-		sintetizados sint = null,sintE,sintP;
+		sintetizados sint = new sintetizados(),sintE,sintP;
 		entrada entrada;
 		Arreglo Arreglo;
 		int nivel,li,ls,offSet,longitud;
