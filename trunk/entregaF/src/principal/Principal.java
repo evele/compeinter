@@ -34,7 +34,9 @@ public class Principal {
 				System.out.println(resultado + "\nEl programa: " + fileIn + " es Sintactica y Semanticamente Correcto." +
 								"\nEl codigo MEPa generado se encuentra en: "+ fileOut + ".");			
 			}
-			else System.out.println("\nError: Cantidad invalida de argumentos." );
+			else System.out.println("\n\n" + "\n =============================================================================== \n " +
+	        		"Error: Cantidad de argumentos invalida" +	
+    		"\n\n =============================================================================== \n\n");
 		}	
 		catch (Exception ex) {System.out.println(ex.getMessage());    }               
 		finally{if(comp!=null)	// escribe el archivo hasta el punto anterior a la excepcion
