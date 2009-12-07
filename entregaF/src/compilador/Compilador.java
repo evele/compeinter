@@ -166,13 +166,13 @@ public class Compilador {
 					s.setValorS(((Constante)entrada).getValor());
 				}
 				else {
-					String t1=ErrorSemantico.construirMsj(saux.getTipoS().toString());
-                    throw new ErrorSemantico(ErrorSemantico.ID_INV,getNumeroLinea(),getNumeroColumna(),t1);
+					//String t1=ErrorSemantico.construirMsj(saux.getTipoS().toString());
+                    throw new ErrorSemantico(ErrorSemantico.ID_INV,getNumeroLinea(),getNumeroColumna(),lex);
 				}					
 			}
 			else {
-					String t1=ErrorSemantico.construirMsj(saux.getTipoS().toString());
-                    throw new ErrorSemantico(ErrorSemantico.ID_INV,getNumeroLinea(),getNumeroColumna(),t1);
+					//String t1=ErrorSemantico.construirMsj(saux.getTipoS().toString());
+                    throw new ErrorSemantico(ErrorSemantico.ID_INV,getNumeroLinea(),getNumeroColumna(),lex);
 			}		
 
 			match(Token.IDENTIFICADOR);
