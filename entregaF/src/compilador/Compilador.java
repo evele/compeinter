@@ -1582,7 +1582,7 @@ public class Compilador {
 					    sint.setTipoS(sintP.getRetornoS());	
 					}
 				}
-				else {					
+				else {						
 					throw new ErrorSemantico(ErrorSemantico.DEMAS_PARAM,getNumeroLinea(),getNumeroColumna());
 				}
 			}
@@ -1696,8 +1696,8 @@ public class Compilador {
 							throw new ErrorSemantico(ErrorSemantico.CTE_REF,getNumeroLinea(),getNumeroColumna(),identificadorH);
 						}
 					}
-					else {
-						throw new ErrorSemantico(ErrorSemantico.DEMAS_PARAM,getNumeroLinea(),getNumeroColumna());
+					else {						
+						throw new ErrorSemantico(ErrorSemantico.FALTAN_PARAM,getNumeroLinea(),getNumeroColumna());
 					}
 				}
 				else { 
@@ -1768,7 +1768,7 @@ public class Compilador {
 						match(Token.COMA);
 						ParametrosActuales(idH, predefH, listaFormalesH);
 				}
-				else {
+				else {					
 						throw new ErrorSemantico(ErrorSemantico.DEMAS_PARAM, getNumeroLinea(),getNumeroColumna());
 				}
 		}
