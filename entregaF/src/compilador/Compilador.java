@@ -529,6 +529,9 @@ public class Compilador {
 	int longitud;
 	entrada entrada;
 	Funcion f;
+	Parametro param;
+	ListIterator itListaFormales, itNuevaLF;
+	ArrayList nuevaLF = new ArrayList();
 	
 		if (numeroTokenActual == Token.PROCEDURE) {
 			match(Token.PROCEDURE);
@@ -536,13 +539,22 @@ public class Compilador {
 			match(Token.IDENTIFICADOR);			
 			sintEncab = encabezadoProcedimiento();			
 			longitud = sintEncab.getEspacioS();
+			itListaFormales = sintEncab.getListaParametrosFormalesS().listIterator();		   
+			
+			while (itListaFormales.hasNext())
+			    {			
+				param = (Parametro) itListaFormales.next();
+				// se corrige el offset correspondiente a la posicion(-x,-y,..,-z)
+				param.setOffSet(-(longitud + 3 - param.getOffSet()));
+				nuevaLF.add(param);
+			    }
 			
 			entrada = TS.getEntradaNivelActual(lex);
 			if ((entrada == null) || (!(entrada instanceof Procedimiento))){
 				label = generador.genEtiqueta();
 				// suma uno al NIVEL porque el bloque del proc corresponde a un NIVEL más		    
 				generador.genInst1ArgCte(label,generador.ENPR, TS.getNivelActual()+1);
-				p = new Procedimiento(sintEncab.getListaParametrosFormalesS(),label,TS.getNivelActual());
+				p = new Procedimiento(nuevaLF,label,TS.getNivelActual());
 				TS.insertar(lex,p);	 
 				TS.apilarNivel();
 				TS.insertarParametros(p.getListaParametrosFormales(),sintEncab.getListaIdsS());		
@@ -565,6 +577,15 @@ public class Compilador {
 			match(Token.IDENTIFICADOR);
 			sintEncab = encabezadoFuncion();
 			longitud = sintEncab.getOffsetS();
+			itListaFormales = sintEncab.getListaParametrosFormalesS().listIterator();		   
+			
+			while (itListaFormales.hasNext())
+		    {			
+			param = (Parametro) itListaFormales.next();
+			// se corrige el offset correspondiente a la posicion(-x,-y,..,-z)
+			param.setOffSet(-(longitud + 3 - param.getOffSet()));
+			nuevaLF.add(param);
+		    }
 			
 			entrada = TS.getEntradaNivelActual(lex);
 			if ((entrada == null) || (!(entrada instanceof Funcion))) {
