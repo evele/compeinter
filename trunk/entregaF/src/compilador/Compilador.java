@@ -584,20 +584,23 @@ public class Compilador {
 			match(Token.IDENTIFICADOR);
 			sintEncab = encabezadoFuncion();
 			longitud = sintEncab.getOffsetS();
+			//longitud = sintEncab.getEspacioS();
 			itListaFormales = sintEncab.getListaParametrosFormalesS().listIterator();		   
+			int pos = 1;
+			    
+			while (itListaFormales.hasNext()){
+				param = (Parametro) itListaFormales.next();
+				// se coloca el offset correspondiente a la posicion(-x,-y,..,-z)
+				param.setOffSet(-(longitud + 3 - pos));
+				nuevaLF.add(param);
+				pos++;
+			}
 			
-			while (itListaFormales.hasNext())
-		    {			
-			param = (Parametro) itListaFormales.next();
-			// se corrige el offset correspondiente a la posicion(-x,-y,..,-z)
-			param.setOffSet(-(longitud + 3 - param.getOffSet()));
-			nuevaLF.add(param);
-		    }
 			
 			entrada = TS.getEntradaNivelActual(lex);
 			if ((entrada == null) || (!(entrada instanceof Funcion))) {
 				label = generador.genEtiqueta();
-				generador.genInst1ArgCte(label, generador.ENPR, TS.getNivelActual());
+				generador.genInst1ArgCte(label, generador.ENPR, TS.getNivelActual()+1);
 				f = new Funcion(sintEncab.getRetornoS(),-(longitud + 3),sintEncab.getListaParametrosFormalesS(),label,TS.getNivelActual());
 				TS.insertar(lex,f);	 
 				TS.apilarNivel();
@@ -761,7 +764,7 @@ public class Compilador {
 		}
 		else {
 			sintRPF = new sintetizados ();
-			sintRPF.setOffsetS(0);
+			sintRPF.setOffsetS(offsetH);
 			sintRPF.setEspacioS(0); //supongo que esto es lamda y que va a andar :)
 			sintRPF.setListaFormalesS(new ArrayList());
 			sintRPF.setListaIdsS(new ArrayList());
@@ -784,7 +787,7 @@ public class Compilador {
 		}
 		else {
 			match(Token.PARENTESISABRE);
-			sintSPF = seccionParametrosFormales(1);
+			sintSPF = seccionParametrosFormales(0);
 			match(Token.PARENTESISCIERRA);
 			match(Token.DOSPUNTOS);
 			sintTipo = tipo();
