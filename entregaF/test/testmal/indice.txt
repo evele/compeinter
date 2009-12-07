@@ -1,0 +1,254 @@
+Listado de rutas de carpetas
+El n£mero de serie del volumen es 00180000 008E:BAEB
+C:.
+|   indice.txt
+|   
++---Errores de Ejecuci¢n
+|       cont.pas
+|       div0.pas
+|       
++---no OK
+|   +---ejecucion
+|   |       e_limiteOutrango2.pas
+|   |       
+|   +---lexico
+|   |       e_literalInv.PAS
+|   |       
+|   +---semantico
+|   |       constParam.pas
+|   |       e_esperaID-VAR-PARAM.pas
+|   |       e_IdNoDeclarado.PAS
+|   |       e_IdNoDeclarado2.PAS
+|   |       e_IdNoDeclarado3.PAS
+|   |       e_limiteSubrangoInvertido.pas
+|   |       e_operadorRel.pas
+|   |       e_proc-func_sinParam.PAS
+|   |       e_tipoIncompArray.pas
+|   |       e_tiposIncomp_Array.pas
+|   |       limInv.pas
+|   |       
+|   \---sintactico
+|           e_enumerado.PAS
+|           e_esperaBEGIN.PAS
+|           e_matriz.PAS
+|           
++---ok
+|   +---asignaciones
+|   |       asignacionArray.pas
+|   |       asignacionArray2.pas
+|   |       
+|   +---chars
+|   |       igualChar.pas
+|   |       
+|   +---completos
+|   |       cantDigitos.PAS
+|   |       cantVocales.PAS
+|   |       criba.PAS
+|   |       LABERINT.PAS
+|   |       monio.pas
+|   |       PIRAMIDE.PAS
+|   |       VUELTO.PAS
+|   |       
+|   +---decCtte
+|   |       cteChar.pas
+|   |       
+|   +---funcionesPredef
+|   |       operacionesChar.pas
+|   |       ord-chr.PAS
+|   |       ord-chr2.PAS
+|   |       pred1.pas
+|   |       
+|   +---llamadas
+|   |       ambientes.pas
+|   |       
+|   +---numeros
+|   |       negativos.pas
+|   |       
+|   +---opAritm
+|   |       expSinParent.pas
+|   |       expSinParent2.pas
+|   |       PRODUCTO.PAS
+|   |       PRODucto_COCiente.PAS
+|   |       
+|   +---opLogicos
+|   |       expBool.pas
+|   |       operadorRel.pas
+|   |       opNOT.pas
+|   |       
+|   +---pasajes
+|   |       arrayPasaje.pas
+|   |       arrayXvalor.pas
+|   |       comArrayRef.PAS
+|   |       paramExpresion.pas
+|   |       pasaje.pas
+|   |       pasajeArray.pas
+|   |       pasajeArraySmall.pas
+|   |       pasajeArraySmall2.pas
+|   |       pasajeSimple.pas
+|   |       pasajesSubArray.PAS
+|   |       simpleXvalor.pas
+|   |       variosPasajesSimple.PAS
+|   |       
+|   +---recursivo
+|   |   +---array
+|   |   |       recursivo.pas
+|   |   |       
+|   |   \---tipoSimple
+|   |           factorial.PAS
+|   |           
+|   +---subrango
+|   |       limiteSubrango2.pas
+|   |       subrangoCtte.pas
+|   |       
+|   \---while
+|           whileTest.pas
+|           whileTestFunc.pas
+|           
++---Sintaxis correcta, Semantica Erronea
+|   |   INDICE.txt
+|   |   
+|   +---Error Decl.Variables
+|   |       ErrorIdvarDuplicado.pas
+|   |       
+|   +---Error en Declaracion de tipos
+|   |       DefTipoErroneos1.pas
+|   |       DefTipoErroneos3.pas
+|   |       DefTipoErroneos4.pas
+|   |       DefTipoErroneos5.pas
+|   |       DefTipoErroneos6.pas
+|   |       DefTipoErroneos7.pas
+|   |       LimitesSubErroneos.pas
+|   |       
+|   +---Error en Def.Constantes
+|   |       ConstError1.pas
+|   |       ConstError2.pas
+|   |       ConstError3.pas
+|   |       ConstError4.pas
+|   |       
+|   +---Error en Expresiones
+|   |       ChequeoPorEstrErroneo1.pas
+|   |       ExpresionesError1.pas
+|   |       ExpresionesError10.pas
+|   |       ExpresionesError11.pas
+|   |       ExpresionesError12.pas
+|   |       ExpresionesError13.pas
+|   |       ExpresionesError2.pas
+|   |       ExpresionesError3.pas
+|   |       ExpresionesError4.pas
+|   |       ExpresionesError5.pas
+|   |       ExpresionesError6.pas
+|   |       ExpresionesError7.pas
+|   |       ExpresionesError8.pas
+|   |       ExpresionesOperUnario.pas
+|   |       
+|   +---Error Inst IF
+|   |       ErrorExprCondIf.pas
+|   |       
+|   +---Error Inst.While
+|   |       ErrorCondWhile.pas
+|   |       
+|   \---procsYFcs
+|           fc_demasParam.pas
+|           fc_demasParam2.pas
+|           fc_faltanParam.pas
+|           fc_faltanParam2.pas
+|           fc_fueraDelBloque.pas
+|           fc_sinRetorno.pas
+|           pc_malTipo.pas
+|           pc_numXRef.pas
+|           pc_numXRef2.pas
+|           
+\---Sintaxis y semantica correctas
+    +---Arrays
+    |   +---asignaciones
+    |   |       compArray.pas
+    |   |       compMat.pas
+    |   |       masivaMatriz.pas
+    |   |       masivaSimple.pas
+    |   |       subarreglos.pas
+    |   |       subarreglos2.pas
+    |   |       
+    |   \---pasajes
+    |           Estan en procedimientos
+    |           
+    +---Constantes
+    |       const1.pas
+    |       
+    +---Expresiones
+    |   +---numeros
+    |   |       negativos.pas
+    |   |       
+    |   +---opAritm
+    |   |       expSinParent.pas
+    |   |       expSinParent2.pas
+    |   |       PRODUCTO.PAS
+    |   |       PRODucto_COCiente.PAS
+    |   |       
+    |   \---opLogicos
+    |           expBool.pas
+    |           operadorRel.pas
+    |           opNOT.pas
+    |           
+    +---Funciones
+    |       anidSinParam.pas
+    |       porRef.pas
+    |       porVal.pas
+    |       recursiva.pas
+    |       sinParam.pas
+    |       variosPorRef.pas
+    |       variosPorRef2.pas
+    |       variosPorVal.pas
+    |       
+    +---IFs
+    |       if1.pas
+    |       if2.pas
+    |       if3.pas
+    |       if4.pas
+    |       if5.pas
+    |       if6.pas
+    |       
+    +---Predefinidos
+    |       ord-chr.PAS
+    |       ord-chr2.PAS
+    |       pred.pas
+    |       succPred.pas
+    |       
+    +---Procedimientos
+    |       anidRefRef.pas
+    |       anidRefVal.pas
+    |       anidValRef.pas
+    |       anidValVal.pas
+    |       porRef.pas
+    |       porVal.pas
+    |       recuArray.pas
+    |       recuSimple.pas
+    |       sinParam.pas
+    |       subRefRef.pas
+    |       subRefVal.pas
+    |       subValRef.pas
+    |       subValVal.pas
+    |       variosPorRef.pas
+    |       variosPorVal.pas
+    |       
+    +---Programas completos
+    |       hanoi.pas
+    |       mediaPiramide.pas
+    |       nReinas.pas
+    |       tateti.pas
+    |       
+    +---Subrangos
+    |       Subrango1.pas
+    |       Subrango2.pas
+    |       Subrango3.pas
+    |       subrango4.pas
+    |       
+    +---Tipos
+    |       arreglo.pas
+    |       subrango.pas
+    |       
+    \---whiles
+            arreglo.pas
+            matriz.pas
+            simple.pas
+            whileEnProc.pas
+            

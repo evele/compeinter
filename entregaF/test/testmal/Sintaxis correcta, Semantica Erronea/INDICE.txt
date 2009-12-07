@@ -1,0 +1,59 @@
+CARPETA:ERROR EN DEF.CONSTANTES
+
+CONSTErroR1;{"Identificador de constante no declarado"}
+CONSTErroR3;{"Se esperaba constante entera "}
+CONSTErroR4;{"Identificador de constante no declarado"}
+
+------------------------------------------------------------------------
+
+CARPETA: ERROR EN DECLARACION DE TIPOS
+
+DefTipoErroneos1;{"Se esperaba identificador de tipo simple"}
+DefTipoErroneos2;{"Se esperaba identificador de tipo simple"}
+DefTipoErroneos3;{"Se esperaba constante entera correspondiente a definicion de Tipo Subrango : lim.sup. "}
+DefTipoErroneos4;{"El límite superior del tipo subrango es menor que el limite inferior "}
+DefTipoErroneos5;{"Identificador no declarada."}
+Program DefTipoErroneos7;{"Identificador de tipo no declarado "}--->NO SE DA EL CASO DE QUE MUESTRE ESE MSJ.
+
+------------------------------------------------------------------------
+
+CARPETA: ERROR EN EXPRESIONES
+
+ExpresionesError1;{ "Asignacion de valor a componente de array:Tipos incompatibles "}
+ExpresionesError2;{ "Cantidad de parametros formales distinta a formales."}
+ExpresionesError3...VER Q MSJS QUEDO
+ExpresionesError4;{"Tipos incompatibles en expresion aritmetica." }
+ExpresionesError5;{"Tipos incompatibles en expresion booleana" }
+ExpresionesError6;{"Expresion fuera de contexto, tipo de evaluacion requerida por referencia donde se espera por valor." }
+ExpresionesError7;{"Tipos incompatibles en expresion booleana ." }
+ExpresionesError8;{ "Tipos incompatibles en expresion relacional."}
+ExpresionesError10;{ "No concuerdan tipos de parametro actual y formal."}
+ExpresionesError11;{ "Tipo de expresión no válida como índice de arreglo "}
+ExpresionesError12;{ "Intento de Subindicacion de array con Identificador que no fue definido como variable"}
+ExpresionesError13;{ "Tipos incompatibles en instruccion de asignacion"}
+
+------------------------------------------------------------------------
+
+CARPETA : ERROR INSTR. IF
+
+ifErrorExp;{ "Instruccion If: Tipo de expresion que evalua condicion distinta de booleana"}
+
+------------------------------------------------------------------------
+
+CARPETA : ERROR INSTR. while
+
+ErrorCondWhile;{"Ins. While: Tipo de expresion que evalua condicion distinta de booleana"}
+
+------------------------------------------------------------------------
+
+CARPETA: ERROR DECLARACION Y USO DE FUNCIONES
+
+ErrorFc1;{ "Evaluacion requerida para funcion incorrecta." }
+ErrorFc2;{ "Se esperaba identificador de funcion." }
+
+
+------------------------------------------------------------------------
+
+CARPETA: ERROR DECL. VARIABLES
+
+IdDuplicados; {Identificador duplicado}
