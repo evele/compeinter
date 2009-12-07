@@ -8,7 +8,7 @@ public class ErrorArchivo extends Exception {
  
     // Error producido al no encontrar el archivo
    
-    final static String RUTA_INVALIDA = "La ruta o el arhivo especificado son invalidos.";
+    final static String RUTA_INVALIDA = "Error: La ruta o el arhivo especificado son invalidos.";
         
     // Error producido al no poder acceder al archivo.
     
@@ -19,8 +19,8 @@ public class ErrorArchivo extends Exception {
     // Constructor de un manejador de errores de archivo
     
     public ErrorArchivo(String tipo) {
-        super("\n ================================================= \n\n  " + tipo
-              + "\n\n ================================================= \n");
+        super("\n =============================================================================== \n " + tipo
+              + "\n\n =============================================================================== \n");
     }
 
     
