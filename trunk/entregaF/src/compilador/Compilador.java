@@ -756,7 +756,8 @@ public class Compilador {
 			sintTipo = tipo();
 			match(Token.PUNTOCOMA);
 			sintEF.setOffsetS(sintSPF.getOffsetS());
-			sintEF.setRetornoS(sintTipo.getRetornoS());
+			//sintEF.setRetornoS(sintTipo.getRetornoS());
+			sintEF.setRetornoS(sintTipo.getTipoS());
 			sintEF.setListaFormalesS(sintSPF.getListaParametrosFormalesS());
 			sintEF.setListaIdsS(sintSPF.getListaIdsS());
 		}
