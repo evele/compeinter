@@ -614,6 +614,9 @@ public class Compilador {
 		sSecPF.setOffsetS(sResPF.getOffsetS());	
 		sSecPF.setEspacioS(sSecPF.getEspacioS() + sResPF.getEspacioS());
 		//sResPF.getListaParametrosFormalesS().insertar(sSecPF.getListaIdsS(), sSecPF.getTipoS(),true/*,sSecPF.porValor()*/);
+		sResPF.getListaParametrosFormalesS().addAll(0, sSecPF.getListaParametrosFormalesS());
+		sResPF.getListaIdsS().addAll(0,sSecPF.getListaIdsS());
+		sSecPF.setListaIdsS(sResPF.getListaIdsS());
 		sSecPF.setListaFormalesS(sResPF.getListaParametrosFormalesS());	
 		return sSecPF;
 	}
@@ -655,6 +658,7 @@ public class Compilador {
 		sGrupoP.setListaFormalesS(listaF);
 		sGrupoP.setOffsetS(offsetH);
 		sGrupoP.setEspacioS(espacio);
+		sGrupoP.setListaIdsS(sGrupoP.getListaIdsS());
 		return sGrupoP;
 	}
 	
@@ -728,6 +732,7 @@ public class Compilador {
 			sintRPF.setOffsetS(0);
 			sintRPF.setEspacioS(0); //supongo que esto es lamda y que va a andar :)
 			sintRPF.setListaFormalesS(new ArrayList());
+			sintRPF.setListaIdsS(new ArrayList());
 		}
 		return sintRPF;
 	}
