@@ -58,6 +58,7 @@ public class Compilador {
 	sintetizados sintEnc, sintB;
 		
 		TS.cargarPredefinidos();
+		
 		generador.genInstSinArg("", generador.INPP);
 		sintEnc = encabezadoPrograma();
 	
@@ -916,6 +917,7 @@ public class Compilador {
 						}
 			}
 			else if ((ent instanceof Funcion) && ((TS.getNivelActual()-1) == (((Funcion)ent).getNivelLexico()))) {
+				
 						sint = expresion(porValorH, "");
 						
 						if (compatibles(((Funcion)ent).getRetorno(),sint.getTipoS())) {
@@ -944,17 +946,17 @@ public class Compilador {
 							predefH = false;
 							listaFormalesH = ((Procedimiento)ent).getListaParametrosFormales();
 					}
-			}
+						
+					match(Token.PARENTESISABRE);
+					ParametrosActuales(idH, predefH, listaFormalesH);
+					match(Token.PARENTESISCIERRA);
 			
-			match(Token.PARENTESISABRE);
-			ParametrosActuales(idH, predefH, listaFormalesH);
-			match(Token.PARENTESISCIERRA);
-			
-			if (! predefH) {
-					generador.genInst1ArgEtiq("", generador.LLPR, ((Procedimiento)ent).getEtiq());
+					if (! predefH) {
+						generador.genInst1ArgEtiq("", generador.LLPR, ((Procedimiento)ent).getEtiq());
+					}
 			}
 			else {
-					throw new  ErrorSemantico(ErrorSemantico.ID_INV, getNumeroLinea(), getNumeroColumna(),idH);
+				throw new  ErrorSemantico(ErrorSemantico.ID_INV, getNumeroLinea(), getNumeroColumna(),idH);
 			}
 		}
 		else if (numeroTokenActual == Token.CORCHETEABRE) {
@@ -1534,8 +1536,9 @@ public class Compilador {
 		}
 		else if (numeroTokenActual == Token.PARENTESISABRE) {
 			
-			entrada=TS.getEntrada(identificadorH);	    
+			entrada=TS.getEntrada(identificadorH);				
 			if (entrada instanceof Funcion){  // solo puede ser una funcion NO un proc
+				
 				if ((((Funcion)entrada).getListaParametrosFormales() == null) || (((Funcion)entrada).getListaParametrosFormales() != null && ((Funcion)entrada).getListaParametrosFormales().size() > 0)){
 					if ( ! esFuncPredef(identificadorH)) {
 						generador.genInst1ArgCte("", generador.RMEM, ((Funcion)entrada).getRetorno().getSize());	
@@ -1551,7 +1554,7 @@ public class Compilador {
 					    sint.setTipoS(sintP.getRetornoS());	
 					}
 				}
-				else {
+				else {					
 					throw new ErrorSemantico(ErrorSemantico.DEMAS_PARAM,getNumeroLinea(),getNumeroColumna());
 				}
 			}
