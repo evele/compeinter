@@ -56,12 +56,19 @@ public class Compilador {
 	
 	private void Programa () throws ErrorLexico, ErrorArchivo, ErrorSintactico, ErrorSemantico, Exception {
 	sintetizados sintEnc, sintB;
-		
+	String label;
+	
 		TS.cargarPredefinidos();
 		
+		
 		generador.genInstSinArg("", generador.INPP);
+		
+		// estas 2 lineas se agruegaron a las 3:55 am
+		label = generador.genEtiqueta();
+		TS.insertar(label, new Programa(TS.getNivelActual()));
+		
 		sintEnc = encabezadoPrograma();
-	
+		
 		sintB = bloque();
 		match(Token.PUNTO);
 		
