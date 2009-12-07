@@ -34,6 +34,7 @@ public class ErrorSemantico extends Exception {
     public static final String ID_NO_DEC="Identificador no declarado";
     public static final String PARAM_REF="Se esperaba un parametro por referencia";
     public static final String CTE_ENT="Se esperaba una constante de tipo entero";
+    public static final String TIPO_NO_DEF="Tipo no definido";
     
     
     //Constructor de un manejador de errores semanticos.      

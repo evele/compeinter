@@ -703,18 +703,21 @@ public class Compilador {
 			if (entrada instanceof Arreglo){
 				sintGrupParam.setListaIdsS(sintIds.getListaIdsS());
 				sintGrupParam.setTipoS((Arreglo)entrada);
-			} 
-			if (entrada instanceof Subrango){
+			}  
+			else if (entrada instanceof Subrango){
 				sintGrupParam.setListaIdsS(sintIds.getListaIdsS());
 				sintGrupParam.setTipoS((Subrango)entrada);
 			} 
-			if (entrada instanceof Entero){
+			else if (entrada instanceof Entero){
 				sintGrupParam.setListaIdsS(sintIds.getListaIdsS());
 				sintGrupParam.setTipoS((Entero)entrada);
 			} 
-			if (entrada instanceof Booleano){
+			else if (entrada instanceof Booleano){
 				sintGrupParam.setListaIdsS(sintIds.getListaIdsS());
 				sintGrupParam.setTipoS((Booleano)entrada);
+			}
+			else {
+				throw new ErrorSemantico(ErrorSemantico.TIPO_NO_DEF,getNumeroLinea(),getNumeroColumna(),lex);
 			}
 		} 
 		else throw new ErrorSemantico(ErrorSemantico.ID_INV,getNumeroLinea(),getNumeroColumna(),lex);
