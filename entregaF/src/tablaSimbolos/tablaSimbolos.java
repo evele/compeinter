@@ -236,6 +236,21 @@ public class tablaSimbolos {
 			insertar((String) itIds.next(), param);
 		}
    }
+   /*
+   public void instertarParametros(ArrayList listaParam, int nivel){
+   ListIterator itListParams;
+   Parametro param;
+   
+   		itListParams = listaParam.listIterator();
+   		
+   		while (itListParams.hasNext){
+   			param = (Parametro) itListParams.next();
+   			insertar()
+   		}
+	   
+   		
+   }
+   */
    
    public entrada getEntradaNivelActual(String id){ 
 	HashMap nivel;    
