@@ -4,8 +4,8 @@ var k:integer;
 
 procedure p (n:integer; g:integer);
 var h:integer;
-	begin
-		if n<2 then h:=g+n;
+begin
+		if n<2 then h:=g+n
 	else begin
 		h:=g;
 		p(n-1,h);
@@ -13,7 +13,7 @@ var h:integer;
 		p(n-2,g)
 	end;
 	write(n,g)
-end
+end;
 
 begin
 k:=0; p(3,k)
