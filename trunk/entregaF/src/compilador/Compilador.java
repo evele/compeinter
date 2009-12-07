@@ -532,10 +532,8 @@ public class Compilador {
 		if (numeroTokenActual == Token.PROCEDURE) {
 			match(Token.PROCEDURE);
 			lex = tokenActual.getLexema();
-			match(Token.IDENTIFICADOR);
-			System.out.println("llegue 1");
-			sintEncab = encabezadoProcedimiento();
-			System.out.println("llegue 2");
+			match(Token.IDENTIFICADOR);			
+			sintEncab = encabezadoProcedimiento();			
 			longitud = sintEncab.getEspacioS();
 			
 			entrada = TS.getEntradaNivelActual(lex);
@@ -549,8 +547,7 @@ public class Compilador {
 				TS.insertarParametros(p.getListaParametrosFormales(),sintEncab.getListaIdsS());		
 			 }
 			else throw new ErrorSemantico(ErrorSemantico.ID_DUP,getNumeroLinea(),getNumeroColumna(),lex);
-
-			System.out.println("llegue 3");
+			
 			sintBloque = bloque();
 			match(Token.PUNTOCOMA);
 			 
@@ -855,7 +852,7 @@ public class Compilador {
 	private void sentenciaSimple (String idH) throws ErrorLexico, ErrorArchivo, ErrorSintactico, ErrorSemantico, Exception {
 	
 	boolean porValorH, predefH = true;
-	sintetizados sint, sint2, sint3 = null;
+	sintetizados sint, sint2;
 	entrada ent;
 	int li, ls, nivel, off, longitud;
 	ArrayList listaFormalesH = null;
@@ -868,7 +865,7 @@ public class Compilador {
 			porValorH = true;
 			
 			if ((ent instanceof Variable) || (ent instanceof Parametro)) {								
-						if ((((Variable)ent).getTipo() instanceof Entero) || (((Variable)ent).getTipo() instanceof Booleano) || (((Variable)ent).getTipo() instanceof Subrango)) {
+						if ((((Variable)ent).getTipo() instanceof Entero) || (((Variable)ent).getTipo() instanceof Booleano) || (((Variable)ent).getTipo() instanceof Subrango)) {							
 							sint = expresion(porValorH, "");
 								if (compatibles(((Variable)ent).getTipo(), sint.getTipoS())) {
 										if (((Variable)ent).getTipo() instanceof Subrango) {
@@ -890,7 +887,7 @@ public class Compilador {
                                         throw new ErrorSemantico(ErrorSemantico.TIPO_INCOMP, getNumeroLinea(), getNumeroColumna(),t1,t2);
 								}
 						}
-						else if (((Variable)ent).getTipo() instanceof Arreglo) {
+						else if (((Variable)ent).getTipo() instanceof Arreglo) {								
 								generador.genInst1ArgCte("",generador.APCT, 0);
 								sint = expresion(porValorH, "");
 								if (compatibles(((Variable)ent).getTipo(), sint.getTipoS())) {
@@ -959,8 +956,8 @@ public class Compilador {
 			
 			ent = TS.getEntrada(idH);
 			
-			if ((ent instanceof Variable) || (ent instanceof Parametro)) {
-					if (((Variable)ent).getTipo() instanceof Arreglo) {
+			if ((ent instanceof Variable) || (ent instanceof Parametro)) {					
+					if (((Variable)ent).getTipo() instanceof Arreglo) {						
 							generador.genInst1ArgCte("", generador.APCT, 0);
 							match(Token.CORCHETEABRE);
 							porValorH = true;	
@@ -995,12 +992,12 @@ public class Compilador {
 			}
 			
 			match(Token.ASIGNACION);
-			sint2 = expresion(porValorH, "");
-			
-			if (compatibles(((Arreglo)ent).getTipoElem(), sint2.getTipoS())) {			
+			sint2 = expresion(porValorH, "");			
+			if (compatibles(((Arreglo)(((Variable)ent).getTipo())).getTipoElem(), sint2.getTipoS())) {
+				
 					nivel = ((Variable)ent).getNivelLexico();
 					off = ((Variable)ent).getOffSet();
-					longitud = sint3.getTipoS().getSize();
+					longitud = sint2.getTipoS().getSize();
 					
 					if ((ent instanceof Parametro) && (((Parametro)ent).getPorValor() == false)) {
 							generador.genInst3ArgCte("", generador.POAI, nivel, off, longitud);
@@ -1010,9 +1007,9 @@ public class Compilador {
 					}
 			}
 			else {
-					String t1,t2;
-                    t1=ErrorSemantico.construirMsj(sint2.getTipoS().toString());
-                    t2=ErrorSemantico.construirMsj(sint3.getTipoS().toString());
+					String t1, t2;
+					t1=ErrorSemantico.construirMsj(((Arreglo)(((Variable)ent).getTipo())).getTipoElem().toString());
+                    t2=ErrorSemantico.construirMsj(sint2.getTipoS().toString());                    
                     throw new  ErrorSemantico(ErrorSemantico.TIPO_INCOMP, getNumeroLinea(), getNumeroColumna(),t1,t2);
 			}
 		}
