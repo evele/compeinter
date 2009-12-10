@@ -999,7 +999,7 @@ public class Compilador {
 			
 			if ((ent instanceof Variable) || (ent instanceof Parametro)) {					
 					if (((Variable)ent).getTipo() instanceof Arreglo) {						
-							generador.genInst1ArgCte("", generador.APCT, 0);
+							//generador.genInst1ArgCte("", generador.APCT, 0);
 							match(Token.CORCHETEABRE);
 							porValorH = true;	
 							sint = expresion(porValorH, "");
@@ -1011,9 +1011,9 @@ public class Compilador {
 									generador.genInst2ArgCte("", generador.CONT, arr.getLimiteInf(), arr.getLimiteSup());
 									generador.genInst1ArgCte("", generador.APCT, arr.getLimiteInf());
 									generador.genInstSinArg("", generador.SUST);
-									generador.genInst1ArgCte("",generador.APCT, arr.getTipoElem().getSize());
-									generador.genInstSinArg("", generador.MULT);
-									generador.genInstSinArg("", generador.SUMA);
+									//generador.genInst1ArgCte("",generador.APCT, arr.getTipoElem().getSize());
+									//generador.genInstSinArg("", generador.MULT);
+									//generador.genInstSinArg("", generador.SUMA);
 									tipoH = arr.getTipoElem();
 							}
 							else {
@@ -1041,10 +1041,13 @@ public class Compilador {
 					longitud = sint2.getTipoS().getSize();
 					
 					if ((ent instanceof Parametro) && (((Parametro)ent).getPorValor() == false)) {
-							generador.genInst3ArgCte("", generador.POAI, nivel, off, longitud);
+							//generador.genInst3ArgCte("", generador.POAI, nivel, off, longitud);
+							generador.genInst2ArgCte("", generador.ALAI, nivel, off);
 					}
 					else {
-							generador.genInst3ArgCte("", generador.POAR, nivel, off, longitud);
+							//generador.genInst3ArgCte("", generador.POAR, nivel, off, longitud);
+							generador.genInst2ArgCte("", generador.ALAR, nivel, off);
+							
 					}
 			}
 			else {
@@ -1421,9 +1424,10 @@ public class Compilador {
 			en = TS.getEntrada(idH);
 			if (en != null){
 				match(Token.IDENTIFICADOR);
-				if ((en instanceof Variable) && (((Variable)en).getTipo() instanceof Arreglo)) {
-						generador.genInst1ArgCte("", generador.APCT, 0);
-				}
+				
+				//if ((en instanceof Variable) && (((Variable)en).getTipo() instanceof Arreglo)) {
+				//		generador.genInst1ArgCte("", generador.APCT, 0);
+				//}
 			
 				s = factorFac(idH, porValorH, idPredefH);
 			}
@@ -1495,9 +1499,9 @@ public class Compilador {
 						generador.genInst2ArgCte("",generador.CONT,Arreglo.getLimiteInf(),Arreglo.getLimiteSup());
 						generador.genInst1ArgCte("",generador.APCT,Arreglo.getLimiteInf());
 						generador.genInstSinArg("",generador.SUST);
-						generador.genInst1ArgCte("",generador.APCT,Arreglo.getTipoElem().getSize());
-						generador.genInstSinArg("",generador.MULT);
-						generador.genInstSinArg("",generador.SUMA);
+						// generador.genInst1ArgCte("",generador.APCT,Arreglo.getTipoElem().getSize());
+						// generador.genInstSinArg("",generador.MULT);
+						// generador.genInstSinArg("",generador.SUMA);
 						
 						sint = new sintetizados();					//con mucho cuidado, porque tal vez no funca
 						sint.setTipoS(Arreglo.getTipoElem());
@@ -1520,10 +1524,12 @@ public class Compilador {
 							else { // Parametro recibido por valor	
 								if (TS.esProcLectura(idPredH)) {   // si se debe leer la inst. es la inversa
 									generarProcLectura(idPredH, sint.getTipoS());
-									generador.genInst3ArgCte("",generador.POAR, nivel, offSet, longitud);
+									//generador.genInst3ArgCte("",generador.POAR, nivel, offSet, longitud);
+									generador.genInst2ArgCte("",generador.ALAR, nivel, offSet);
 								}
 								else {
-									generador.genInst3ArgCte("",generador.PUAR, nivel, offSet, longitud);
+									//generador.genInst3ArgCte("",generador.PUAR, nivel, offSet, longitud);
+									generador.genInst2ArgCte("",generador.APAR, nivel, offSet);
 								}
 							}
 						}
