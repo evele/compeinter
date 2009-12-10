@@ -318,7 +318,7 @@ public class Compilador {
 						else if (en instanceof Arreglo)
 							s.setTipoS((Arreglo)en);
 						else
-							throw new ErrorSemantico(ErrorSemantico.ID_INV,getNumeroLinea(),getNumeroColumna(),lex);
+							throw new ErrorSemantico(ErrorSemantico.TIPO_NO_DEF,getNumeroLinea(),getNumeroColumna(),lex);
 				}
 				else {
 						if (((Constante)en).getTipo() instanceof Entero) {
