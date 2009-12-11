@@ -1686,7 +1686,8 @@ public class Compilador {
 								generador.genInstSinArg("",generador.SUMA);				      
 							}
 							else { //Parametro recibido por valor o Variable
-								generador.genInst2ArgCte("",generador.APDC, nivel, offSet);
+								//generador.genInst2ArgCte("",generador.APDC, nivel, offSet);
+								generador.genInst3ArgCte("",generador.PUAI,nivel,offSet,longitud);
 							}
 						}
 						sint.setTipoS(((Variable) entrada).getTipo());	// sintetiza el tipo elemento del Arreglo			  
