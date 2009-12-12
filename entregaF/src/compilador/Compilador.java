@@ -1518,7 +1518,8 @@ public class Compilador {
 									generador.genInst3ArgCte("",generador.POAI, nivel, offSet, longitud);
 								}
 								else {
-									generador.genInst3ArgCte("",generador.PUAI, nivel, offSet, longitud);
+									//aca antes teniamos PUAI... no se pq...
+									generador.genInst2ArgCte("",generador.APAI, nivel, offSet);
 								}
 							}
 							else { // Parametro recibido por valor	
