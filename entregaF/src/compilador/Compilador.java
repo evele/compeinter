@@ -928,7 +928,7 @@ public class Compilador {
 								}
 						}
 						else if (((Variable)ent).getTipo() instanceof Arreglo) {								
-								generador.genInst1ArgCte("",generador.APCT, 0);
+								// generador.genInst1ArgCte("",generador.APCT, 0);
 								sint = expresion(porValorH, "");
 								if (compatibles(((Variable)ent).getTipo(), sint.getTipoS())) {
 										nivel = ((Variable)ent).getNivelLexico();
@@ -1688,7 +1688,8 @@ public class Compilador {
 							}
 							else { //Parametro recibido por valor o Variable
 								//generador.genInst2ArgCte("",generador.APDC, nivel, offSet);
-								generador.genInst3ArgCte("",generador.PUAI,nivel,offSet,longitud);
+								//generador.genInst3ArgCte("",generador.PUAI,nivel,offSet,longitud);
+								generador.genInst2ArgCte("",generador.APDR,nivel,offSet);
 							}
 						}
 						sint.setTipoS(((Variable) entrada).getTipo());	// sintetiza el tipo elemento del Arreglo			  
