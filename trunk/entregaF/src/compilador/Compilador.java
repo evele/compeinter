@@ -583,15 +583,16 @@ public class Compilador {
 			lex = tokenActual.getLexema();
 			match(Token.IDENTIFICADOR);
 			sintEncab = encabezadoFuncion();
-			longitud = sintEncab.getOffsetS();
-			//longitud = sintEncab.getEspacioS();
+			//longitud = sintEncab.getOffsetS();
+			longitud = sintEncab.getEspacioS();
 			itListaFormales = sintEncab.getListaParametrosFormalesS().listIterator();		   
 			int pos = 1;
 			    
 			while (itListaFormales.hasNext()){
 				param = (Parametro) itListaFormales.next();
 				// se coloca el offset correspondiente a la posicion(-x,-y,..,-z)
-				param.setOffSet(-(longitud + 3 - pos));
+				//param.setOffSet(-(longitud + 3 - pos));
+				param.setOffSet(-(longitud+3-param.getOffSet()));
 				nuevaLF.add(param);
 				pos++;
 			}
@@ -781,19 +782,21 @@ public class Compilador {
 			sintTipo = tipo();
 			match(Token.PUNTOCOMA);
 			sintEF.setOffsetS(0);
+			sintEF.setEspacioS(0);
 			sintEF.setRetornoS(sintTipo.getTipoS());
 			sintEF.setListaFormalesS(new ArrayList());
 			sintEF.setListaIdsS(new ArrayList());
 		}
 		else {
 			match(Token.PARENTESISABRE);
-			sintSPF = seccionParametrosFormales(0);
+			sintSPF = seccionParametrosFormales(1);
 			match(Token.PARENTESISCIERRA);
 			match(Token.DOSPUNTOS);
 			sintTipo = tipo();
 			match(Token.PUNTOCOMA);
 			sintEF.setOffsetS(sintSPF.getOffsetS());
 			//sintEF.setRetornoS(sintTipo.getRetornoS());
+			sintEF.setEspacioS(sintSPF.getEspacioS());
 			sintEF.setRetornoS(sintTipo.getTipoS());
 			sintEF.setListaFormalesS(sintSPF.getListaParametrosFormalesS());
 			sintEF.setListaIdsS(sintSPF.getListaIdsS());
@@ -1543,7 +1546,7 @@ public class Compilador {
 								}
 								else {
 									generador.genInst2ArgCte("",generador.APVL, nivel, offSet); 
-									generador.genInstSinArg("",generador.SUMA);			
+									//generador.genInstSinArg("",generador.SUMA);			
 								}
 							}	 
 							else { // Parametro recibido por valor	
@@ -1684,11 +1687,12 @@ public class Compilador {
 								generador.genInst2ArgCte("",generador.APVL, nivel, offSet); 
 								//este es el de la TABLA!!!!!!!!!!!!                                                     
 								//para que anda chiche....hay que sacarlo!
-								generador.genInstSinArg("",generador.SUMA);				      
+								//generador.genInstSinArg("",generador.SUMA);				      
 							}
 							else { //Parametro recibido por valor o Variable
 								//generador.genInst2ArgCte("",generador.APDC, nivel, offSet);
 								//generador.genInst3ArgCte("",generador.PUAI,nivel,offSet,longitud);
+								
 								generador.genInst2ArgCte("",generador.APDR,nivel,offSet);
 							}
 						}
