@@ -97,7 +97,9 @@ private Vector params;
     public void setRetornoS(tipo t)
     {
         try{
-	getParams().add(4, t);}
+	//getParams().add(4, t);
+    getParams().set(4, t);
+        }
         catch(ArrayIndexOutOfBoundsException a){
             getParams().setSize(4);
             getParams().add(t);
@@ -114,7 +116,8 @@ private Vector params;
     public void setEspacioS(int e)
     {
         try{
-	getParams().add(5, new Integer(e));}
+	//getParams().add(5, new Integer(e));
+	getParams().set(5, new Integer(e));}
         catch(ArrayIndexOutOfBoundsException a){
             getParams().setSize(5);
             getParams().add(new Integer(e));
@@ -130,7 +133,8 @@ private Vector params;
     
     public void setValorS(int value)
     {   try{
-            getParams().add(6,new Integer(value));   }
+            //getParams().add(6,new Integer(value)); 
+            getParams().set(6,new Integer(value));}
         catch(ArrayIndexOutOfBoundsException a){
             getParams().setSize(6);
             getParams().add(new Integer(value));
@@ -143,7 +147,8 @@ private Vector params;
 	
  
     public void setSignoS(int value)
-    {   try{getParams().add(7,new Integer(value));   }
+    {   //try{getParams().add(7,new Integer(value));
+    	try{getParams().set(7,new Integer(value));}
         catch(ArrayIndexOutOfBoundsException a){
             getParams().setSize(7);
             getParams().add(new Integer(value));
@@ -160,7 +165,8 @@ private Vector params;
     
    
     public void setLimiteInfS(int value)
-    {   try{getParams().add(8,new Integer(value));   }
+    {   //try{getParams().add(8,new Integer(value)); 
+    	try{getParams().set(8,new Integer(value));}
         catch(ArrayIndexOutOfBoundsException a){
             getParams().setSize(8);
             getParams().add(new Integer(value));
@@ -173,7 +179,8 @@ private Vector params;
     
    
     public void setLimiteSupS(int value)
-    {   try{getParams().add(9,new Integer(value));   }
+    {   //try{getParams().add(9,new Integer(value)); 
+    	try{getParams().set(9,new Integer(value));}
         catch(ArrayIndexOutOfBoundsException a){
             getParams().setSize(9);
             getParams().add(new Integer(value));
@@ -222,7 +229,8 @@ private Vector params;
     
     public void agregarID(String id)
     {
-        getListaIdsS().add(0, id);	
+        getListaIdsS().add(0, id);
+        //getListaIdsS().add(0, id);
     }
 
 }
